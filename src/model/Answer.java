@@ -4,6 +4,7 @@ public class Answer extends BaseEntity implements IEntity {
     private int id;
     private int questionFk;
     private String answer;
+    private boolean correct;
 
     public Answer(){}
 
@@ -11,15 +12,22 @@ public class Answer extends BaseEntity implements IEntity {
         this.answer=answer;
     }
 
-    public Answer(String answer, int questionFk){
+    public Answer(String answer, boolean correct){
         this.answer=answer;
-        this.questionFk= questionFk;
+        this.correct=correct;
     }
 
-    public Answer(int id,String answer, int questionFk){
+    public Answer(String answer, int questionFk, boolean correct){
+        this.answer=answer;
+        this.questionFk= questionFk;
+        this.correct=correct;
+    }
+
+    public Answer(int id,String answer, int questionFk, boolean correct){
         this.id=id;
         this.answer=answer;
         this.questionFk= questionFk;
+        this.correct=correct;
     }
 
 
@@ -35,6 +43,8 @@ public class Answer extends BaseEntity implements IEntity {
 
     @Override
     public void view(int id) {
+        this.id=id;
+        //todo get data from answerBroker and put it into variables.
 
     }
 
@@ -66,5 +76,13 @@ public class Answer extends BaseEntity implements IEntity {
 
     public void setQuestionFk(int questionFk) {
         this.questionFk = questionFk;
+    }
+
+    public boolean isCorrect() {
+        return correct;
+    }
+
+    public void setCorrect(boolean correct) {
+        this.correct = correct;
     }
 }

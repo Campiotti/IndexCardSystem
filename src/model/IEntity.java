@@ -2,13 +2,26 @@ package model;
 
 public interface IEntity {
 
-    public abstract void save();
+    /**
+     * Saves the model into the database
+     */
+    void save();
 
-    public abstract void delete();
+    /**
+     * removes the model from the database
+     */
+    void delete();
 
-    public abstract void view(int id);
+    /**
+     * sets the model's data by the id which is stored in the database.
+     * @param id int database id which is stored in the database, used to identify model.
+     */
+    void view(int id);
 
-    public abstract void edit();
+    /**
+     * updates a model's values in the database.
+     */
+    void edit();
 
 
 }

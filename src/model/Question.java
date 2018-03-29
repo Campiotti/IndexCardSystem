@@ -2,6 +2,7 @@ package model;
 
 public class Question extends BaseEntity implements IEntity {
     private int id;
+    private int cardDeckFk;
     private String question;
     private boolean numberQuestion=false;
 
@@ -16,8 +17,15 @@ public class Question extends BaseEntity implements IEntity {
         this.numberQuestion=numberQuestion;
     }
 
-    public Question(int id, String question, boolean numberQuestion){
+    public Question(int cardDeckFk, String question, boolean numberQuestion){
+        this.cardDeckFk=cardDeckFk;
+        this.question=question;
+        this.numberQuestion=numberQuestion;
+    }
+
+    public Question(int id, int cardDeckFk, String question, boolean numberQuestion){
         this.id=id;
+        this.cardDeckFk=cardDeckFk;
         this.question=question;
         this.numberQuestion=numberQuestion;
     }
@@ -61,5 +69,13 @@ public class Question extends BaseEntity implements IEntity {
 
     public boolean isNumberQuestion() {
         return numberQuestion;
+    }
+
+    public int getCardDeckFk() {
+        return cardDeckFk;
+    }
+
+    public void setCardDeckFk(int cardDeckFk) {
+        this.cardDeckFk = cardDeckFk;
     }
 }
