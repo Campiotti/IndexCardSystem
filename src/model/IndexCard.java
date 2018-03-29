@@ -5,10 +5,13 @@ public class IndexCard extends BaseEntity implements IEntity {
     private String question;
     private boolean numberQuestion=false;
 
-    public IndexCard(){}
+    public IndexCard(){
 
-    public IndexCard(String question){
+    }
+
+    public IndexCard(String question, boolean numberQuestion){
         this.question=question;
+        this.numberQuestion=numberQuestion;
     }
 
     @Override
@@ -42,5 +45,13 @@ public class IndexCard extends BaseEntity implements IEntity {
 
     public void setQuestion(String question) {
         this.question = question;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isNumberQuestion() {
+        return numberQuestion;
     }
 }

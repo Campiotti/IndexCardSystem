@@ -19,15 +19,4 @@ public class Factory {
                 return null;
         }
     }
-
-    public IEntity getEntity(String type){
-        switch (type.toLowerCase()){
-            case"answer":
-                return new Answer();
-            case"indexcard":
-                return new IndexCard();
-            default:
-                return null;
-        }
-    }
 }
