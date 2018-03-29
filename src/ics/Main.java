@@ -22,10 +22,18 @@ public class Main extends Application {
         primaryStage.setMaxHeight(1080);
         primaryStage.setResizable(true);
         primaryStage.setScene(scene);
+        primaryStage.setWidth(1280);
+        primaryStage.setHeight(1024);
         primaryStage.show();
-        ErrorLogger.log("test message");
-        ErrorLogger.log("test message 25");
+        primaryStage.setOnCloseRequest(e -> onClose());
+        ErrorLogger.log("Started CICS - Main Menu now showing.","info.txt");
+        ErrorLogger.log("w: "+primaryStage.getWidth(),"info.txt");
+        ErrorLogger.log("h: "+primaryStage.getHeight(),"info.txt");
         ErrorLogger.log("test messssesesge","file.rar.xD");
+    }
+
+    private void onClose(){
+        ErrorLogger.log("--- Closing CICS ---","info.txt");
     }
 
 
