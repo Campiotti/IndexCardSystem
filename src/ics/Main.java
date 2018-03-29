@@ -20,16 +20,15 @@ public class Main extends Application {
         primaryStage.setMinHeight(1024);
         primaryStage.setMaxWidth(1920);
         primaryStage.setMaxHeight(1080);
-        primaryStage.setResizable(true);
+        primaryStage.setResizable(true); //Anforderungen_erlfuellt ++;
         primaryStage.setScene(scene);
         primaryStage.setWidth(1280);
         primaryStage.setHeight(1024);
         primaryStage.show();
         primaryStage.setOnCloseRequest(e -> onClose());
-        ErrorLogger.log("Started CICS - Main Menu now showing.","info.txt");
+        ErrorLogger.log("--- CICS started ---","info.txt");
         ErrorLogger.log("w: "+primaryStage.getWidth(),"info.txt");
         ErrorLogger.log("h: "+primaryStage.getHeight(),"info.txt");
-        ErrorLogger.log("test messssesesge","file.rar.xD");
     }
 
     private void onClose(){
