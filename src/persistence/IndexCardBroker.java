@@ -1,13 +1,13 @@
 package persistence;
 
-import model.IndexCard;
+import model.Question;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class IndexCardBroker extends Broker<IndexCard>{
+public class IndexCardBroker extends Broker<Question>{
     @Override
-    protected IndexCard makeObject(ResultSet rs) throws SQLException {
+    protected Question makeObject(ResultSet rs) throws SQLException {
         return null;
     }
 }

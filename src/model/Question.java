@@ -1,15 +1,23 @@
 package model;
 
-public class IndexCard extends BaseEntity implements IEntity {
+public class Question extends BaseEntity implements IEntity {
     private int id;
     private String question;
     private boolean numberQuestion=false;
 
-    public IndexCard(){
+    public Question(){}
 
+    public Question(String question){
+        this.question=question;
     }
 
-    public IndexCard(String question, boolean numberQuestion){
+    public Question(String question, boolean numberQuestion){
+        this.question=question;
+        this.numberQuestion=numberQuestion;
+    }
+
+    public Question(int id, String question, boolean numberQuestion){
+        this.id=id;
         this.question=question;
         this.numberQuestion=numberQuestion;
     }

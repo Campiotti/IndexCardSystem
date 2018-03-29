@@ -2,12 +2,26 @@ package model;
 
 public class Answer extends BaseEntity implements IEntity {
     private int id;
+    private int questionFk;
     private String answer;
+
+    public Answer(){}
 
     public Answer(String answer){
         this.answer=answer;
     }
-    public Answer(){}
+
+    public Answer(String answer, int questionFk){
+        this.answer=answer;
+        this.questionFk= questionFk;
+    }
+
+    public Answer(int id,String answer, int questionFk){
+        this.id=id;
+        this.answer=answer;
+        this.questionFk= questionFk;
+    }
+
 
     @Override
     public void save() {
@@ -44,5 +58,13 @@ public class Answer extends BaseEntity implements IEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getQuestionFk() {
+        return questionFk;
+    }
+
+    public void setQuestionFk(int questionFk) {
+        this.questionFk = questionFk;
     }
 }
