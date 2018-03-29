@@ -1,6 +1,7 @@
 package ics;
 
 import controller.IController;
+import helper.ErrorLogger;
 import helper.Factory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("CICS - Campiotti's Index Card System");
         Scene scene = new Scene(root, 1280, 1024);
         primaryStage.setMinWidth(1280);
         primaryStage.setMinHeight(1024);
@@ -22,6 +23,9 @@ public class Main extends Application {
         primaryStage.setResizable(true);
         primaryStage.setScene(scene);
         primaryStage.show();
+        ErrorLogger.log("test message");
+        ErrorLogger.log("test message 25");
+        ErrorLogger.log("test messssesesge","file.rar.xD");
     }
 
 
