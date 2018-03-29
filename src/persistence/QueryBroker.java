@@ -1,4 +1,5 @@
-package service;
+package persistence;
 
 public class QueryBroker {
+
 }
