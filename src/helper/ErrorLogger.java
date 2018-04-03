@@ -10,18 +10,21 @@ public class ErrorLogger {
     /**
      * This is the default file which is logged into unless the overwritten method is called with a custom file name
      */
-    private static final String defaultFile="ErrorLog.txt";
+    private final String defaultFile="ErrorLog.txt";
     /**
      * used to make sure that the default error file emptied when first written into, to clear out old logs.
      * -- only for defaultFile , custom files are not emptied upon first write into of program.
      */
-    private static boolean emptied=false;
-
+    private boolean emptied=false;
+    /**
+     * Singelton ErrorLogger to optimize performance.
+     */
+    private static ErrorLogger instance;
     /**
      * Calls the internal log method and writes the text it got into there.
      * @param text String text which is written into the file.
      */
-    public static void log(String text){
+    public void log(String text){
         new ErrorLogger().logInternal(text, defaultFile);
     }
 
@@ -30,7 +33,7 @@ public class ErrorLogger {
      * @param text String text which is to be written into the file.
      * @param customFile String name of the file which is to be written into.
      */
-    public static void log(String text, String customFile){
+    public void log(String text, String customFile){
         new ErrorLogger().logInternal(text, customFile);
     }
 
@@ -74,5 +77,20 @@ public class ErrorLogger {
         }
 
     }
+
+    /**
+     * Singleton method used for optimization.
+     * @return Errorlogger instance.
+     */
+    public static ErrorLogger getInstance(){
+        if(instance==null)
+            instance = new ErrorLogger();
+        return instance;
+    }
+
+    /**
+     * private constructor so it can't be constructed normally / outside of the class.
+     */
+    private ErrorLogger(){}
 
 }

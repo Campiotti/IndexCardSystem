@@ -43,6 +43,16 @@ public class CardDeck extends BaseEntity implements IEntity {
     }
 
     @Override
+    public String getText(String key) {
+        return null;
+    }
+
+    @Override
+    public void setText(String key, Object value) {
+
+    }
+
+    @Override
     public int getId() {
         return id;
     }
