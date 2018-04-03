@@ -1,6 +1,6 @@
 package model;
 
-public class Question extends BaseEntity implements IEntity {
+public class Question extends BaseEntity implements IEntity,QandA {
     private int id;
     private int cardDeckFk;
     private String question;
@@ -50,8 +50,9 @@ public class Question extends BaseEntity implements IEntity {
 
     }
 
+
     @Override
-    public String getText(String key) {
+    public Object getValue(String key) {
         return null;
     }
 

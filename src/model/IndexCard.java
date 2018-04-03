@@ -76,14 +76,4 @@ public class IndexCard extends BaseEntity implements IEntity{
     public void edit() {
 
     }
-
-    @Override
-    public String getText(String key) {
-        return null;
-    }
-
-    @Override
-    public void setText(String key, Object value) {
-
-    }
 }

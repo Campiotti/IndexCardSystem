@@ -4,7 +4,7 @@ import controller.IController;
 import controller.MainController;
 import controller.MainMenuController;
 import model.Answer;
-import model.IEntity;
+import model.QandA;
 import model.Question;
 
 public class Factory {
@@ -20,7 +20,7 @@ public class Factory {
         }
     }
 
-    public IEntity getModel(String type, Object[] init_vars){
+    public QandA getQorA(String type, Object[] init_vars){
         switch (type.toLowerCase()){
             case"answer":
                 return new Answer();
