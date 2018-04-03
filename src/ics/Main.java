@@ -1,7 +1,6 @@
 package ics;
 
 import helper.ErrorLogger;
-import helper.Factory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,8 +26,7 @@ public class Main extends Application {
         primaryStage.setHeight(1024);
         primaryStage.getIcons().add(new Image("/res/Schmitz'sFavourite.png"));
         primaryStage.show();
-        QuestionBroker questionBroker = new QuestionBroker();
-        questionBroker.t();
+        QuestionBroker.getInstance().temp();
         primaryStage.setOnCloseRequest(e -> onClose());
         ErrorLogger.getInstance().log("--- CICS started ---","info.txt");
         ErrorLogger.getInstance().log("w: "+primaryStage.getWidth(),"info.txt");
