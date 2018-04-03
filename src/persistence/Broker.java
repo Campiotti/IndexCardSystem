@@ -1,6 +1,8 @@
 package persistence;
 
 
+import helper.ErrorLogger;
+
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -78,6 +80,32 @@ abstract class Broker<T> {
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
             return rs.getInt(1);
+        }
+    }
+
+    /**
+     * Creates all tables necessary for the program to run.
+     */
+    void createTables(){
+        String tmp2="create table if not exists Question(id integer IDENTITY PRIMARY KEY auto_increment," +
+                "cardDeckFk integer," +
+                "question varchar(100)," +
+                "isNumberQuestion bool," +
+                "FOREIGN KEY(cardDeckFk) references CardDeck(id))";
+        String tmp3="create table if not exists Answer(id integer IDENTITY PRIMARY KEY auto_increment," +
+                "questionFk integer," +
+                "answer varchar(100)," +
+                "FOREIGN KEY(questionFk) references question(id))";
+        String tmp1="create table if not exists CardDeck(id integer IDENTITY PRIMARY KEY auto_increment," +
+                "title varchar(50)," +
+                "passPercent integer," +
+                "cardsPerRun integer)";
+        try{
+            update(tmp1);
+            update(tmp2);
+            update(tmp3);
+        }catch (Exception e){
+            ErrorLogger.getInstance().log(e.getLocalizedMessage());
         }
     }
 }

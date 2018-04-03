@@ -15,4 +15,5 @@ public class AnswerBroker extends Broker<Answer>{
     protected Answer makeObject(ResultSet rs) throws SQLException {
         return null;
     }
+
 }
