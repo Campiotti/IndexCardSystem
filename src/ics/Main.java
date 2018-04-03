@@ -13,7 +13,7 @@ public class Main extends Application {
     //http://www.leepoint.net/GUI/structure/40mvc.html
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../fxml/mainMenu.fxml"));
         primaryStage.setTitle("CICS - Campiotti's Index Card System");
         Scene scene = new Scene(root, 1280, 1024);
         primaryStage.setMinWidth(1280);
