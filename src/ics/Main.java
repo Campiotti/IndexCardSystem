@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import persistence.DBManager;
 import persistence.QuestionBroker;
 
 public class Main extends Application {
@@ -26,7 +27,7 @@ public class Main extends Application {
         primaryStage.setHeight(1024);
         primaryStage.getIcons().add(new Image("/res/Schmitz'sFavourite.png"));
         primaryStage.show();
-        QuestionBroker.getInstance().temp();
+        DBManager.getInstance().seed();
         primaryStage.setOnCloseRequest(e -> onClose());
         ErrorLogger.getInstance().log("--- CICS started ---","info.txt");
         ErrorLogger.getInstance().log("w: "+primaryStage.getWidth(),"info.txt");

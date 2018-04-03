@@ -26,10 +26,5 @@ public class QuestionBroker extends Broker<Question>{
     public List<Question> getQuestions() throws IOException, SQLException {
         return query("select * from question");
     }
-    public void temp(){
-        createTables();
-    }
-
-
 
 }
