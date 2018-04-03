@@ -1,7 +1,5 @@
 package model;
 
-import persistence.AnswerBroker;
-
 public class Question extends BaseEntity implements IEntity,QandA {
     private int id;
     private int cardDeckFk;

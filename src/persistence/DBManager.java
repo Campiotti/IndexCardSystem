@@ -64,7 +64,7 @@ public class DBManager extends Broker<DBManager>{
     }
 
     @Override
-    protected DBManager makeObject(ResultSet rs) throws SQLException {
+    protected DBManager makeObject(ResultSet rs) {
         return null;
     }
 }

@@ -1,8 +1,6 @@
 package persistence;
 
 
-import helper.ErrorLogger;
-
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
