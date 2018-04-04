@@ -65,5 +65,12 @@ public class Validifier {
         valid = (input.trim().length()>=minLength && input.trim().length()<=maxLength && m.matches());
         return valid;
     }
+
+    public boolean checkNumber(String input){
+        Pattern p = Pattern.compile("[0-9]");
+        Matcher m = p.matcher(input.trim());
+        valid = m.matches();
+        return valid;
+    }
 }
 
