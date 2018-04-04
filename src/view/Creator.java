@@ -1,5 +1,7 @@
 package view;
 
+import ics.ScreenController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -7,7 +9,11 @@ import javafx.scene.control.TextField;
 public class Creator {
 
     @FXML
-    public TextField test;
+    public TextField creatorCDNameTxt,creatorCDPassPTxt,creatorCDCardsPRTxt;
     @FXML
-    public Button ttset2;
+    public Button creatorCDAddBtn, creatorSysBtn;
+
+    public void creatorSysBtnA(ActionEvent actionEvent) {
+        ScreenController.getInstance().activate("mainMenu");
+    }
 }
