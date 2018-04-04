@@ -20,7 +20,7 @@ public class Factory {
         }
     }
 
-    public QandA getQorA(String type, Object[] init_vars){
+    public QandA getQorA(String type){
         switch (type.toLowerCase()){
             case"answer":
                 return new Answer();
