@@ -18,6 +18,15 @@ public class CardDeck extends BaseModel<CardDeck> implements IEntity {
         this.addProperty("passPercent",this.passPercent);
         this.addProperty("cardsPerRun",this.cardsPerRun);
     }
+    public CardDeck(String title, int passPercent, int cardsPerRun) throws SQLException{
+        this.addProperty("title",this.title);
+        this.addProperty("passPercent",this.passPercent);
+        this.addProperty("cardsPerRun",this.cardsPerRun);
+        this.title.set(title);
+        this.passPercent.set(passPercent);
+        this.cardsPerRun.set(cardsPerRun);
+
+    }
 
     @Override
     public void save() {

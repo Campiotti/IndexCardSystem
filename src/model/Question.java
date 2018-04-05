@@ -1,17 +1,32 @@
 package model;
 
 import helper.ErrorLogger;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
-public class Question extends BaseModel<Question> implements IEntity,QandA {
-    private int id;
-    private int cardDeckFk;
-    private String question;
-    private boolean numberQuestion=false;
+public class Question extends BaseModel<Question> implements IEntity {
+    public SimpleIntegerProperty cardDeckFk;
+    private SimpleStringProperty question;
+    private SimpleBooleanProperty numberQuestion;
 
-    public Question() throws SQLException {}
+    public Question() throws SQLException {
+        this.addProperty("cardDeckFk",this.cardDeckFk);
+        this.addProperty("question",this.question);
+        this.addProperty("numberQuestion",this.numberQuestion);
+    }
+    public Question(int cardDeckFk, String question, boolean numberQuestion) throws SQLException{
+        this.addProperty("cardDeckFk",this.cardDeckFk);
+        this.addProperty("question",this.question);
+        this.addProperty("numberQuestion",this.numberQuestion);
+        this.cardDeckFk.set(cardDeckFk);
+        this.question.set(question);
+        this.numberQuestion.set(numberQuestion);
+
+    }
 
 
     @Override
@@ -30,17 +45,6 @@ public class Question extends BaseModel<Question> implements IEntity,QandA {
 
     @Override
     public void edit() {
-
-    }
-
-
-    @Override
-    public Object getValue(String key) {
-        return null;
-    }
-
-    @Override
-    public void setText(String key, Object value) {
 
     }
 }

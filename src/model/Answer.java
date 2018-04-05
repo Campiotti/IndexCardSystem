@@ -8,15 +8,13 @@ import javafx.beans.property.SimpleStringProperty;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
-public class Answer extends BaseModel<Answer> implements IEntity,QandA {
+public class Answer extends BaseModel<Answer> implements IEntity {
     public SimpleIntegerProperty questionFk = new SimpleIntegerProperty();
     public SimpleStringProperty answer = new SimpleStringProperty();
-    public SimpleBooleanProperty correct = new SimpleBooleanProperty();
 
     public Answer() throws SQLException {
         this.addProperty("questionFk",this.questionFk);
         this.addProperty("answer",this.answer);
-        this.addProperty("correct",this.correct);
     }
 
     @Override
@@ -29,13 +27,6 @@ public class Answer extends BaseModel<Answer> implements IEntity,QandA {
     }
 
     @Override
-    public void delete() {
-
-
-
-    }
-
-    @Override
     public void view(int id) {
 
         //todo get data from answerBroker and put it into variables.
@@ -44,16 +35,6 @@ public class Answer extends BaseModel<Answer> implements IEntity,QandA {
 
     @Override
     public void edit() {
-
-    }
-
-    @Override
-    public Object getValue(String key) {
-        return null;
-    }
-
-    @Override
-    public void setText(String key, Object value) {
 
     }
 }

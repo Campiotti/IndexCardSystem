@@ -4,7 +4,6 @@ import controller.IController;
 import controller.MainController;
 import controller.MainMenuController;
 import model.Answer;
-import model.QandA;
 import model.Question;
 
 import java.sql.SQLException;
@@ -22,14 +21,4 @@ public class Factory {
         }
     }
 
-    public QandA getQorA(String type) throws SQLException {
-        switch (type.toLowerCase()){
-            case"answer":
-                return new Answer();
-            case"question":
-                return new Question();
-            default:
-                return null;
-        }
-    }
 }

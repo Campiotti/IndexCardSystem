@@ -8,15 +8,16 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 
 public class MainMenu {
 
     @FXML
-    public Button mainMenuCreatorBtn,mainMenuPlayBtn,mainMenuCloseBtn;
+    public Button mainMenuCreatorBtn,mainMenuPlayBtn,mainMenuCloseBtn; //16px 75w 37h | 20px 64w 44h | 16px 61w 37h
     @FXML
-    public AnchorPane mainMenuPane;
+    public AnchorPane mainMenuPane; // 600w 400h
     @FXML
-    public ImageView mainMenuImage;
+    public ImageView mainMenuImage; //325w 132h
     @FXML
     public GridPane mainMenuGridPane;
 
@@ -24,11 +25,20 @@ public class MainMenu {
     @FXML
     public void initialize(){
         mainMenuPane.widthProperty().addListener((obs, oldVal, newVal) ->{
-            resize(true,newVal);
+            mainMenuImage.setFitWidth((Double)newVal*0.54166);
+            mainMenuCreatorBtn.setPrefWidth((Double)newVal*0.125);
+            mainMenuPlayBtn.setPrefWidth((Double)newVal*0.10666);
+            mainMenuCloseBtn.setPrefWidth((Double)newVal*0.101666);
         });
 
         mainMenuPane.heightProperty().addListener((obs, oldVal, newVal) ->{
-            resize(false,newVal);
+            mainMenuImage.setFitHeight((Double)newVal*0.33);
+            mainMenuCreatorBtn.setPrefHeight((Double)newVal*0.0925);
+            mainMenuCreatorBtn.setFont(Font.font("System",(Double)newVal*0.04*0.75));
+            mainMenuPlayBtn.setPrefHeight((Double)newVal*0.11);
+            mainMenuPlayBtn.setFont(Font.font("System",(Double)newVal*0.05*0.75));
+            mainMenuCloseBtn.setPrefHeight((Double)newVal*0.0925);
+            mainMenuCloseBtn.setFont(Font.font("System",(Double)newVal*0.04*0.75));
         });
     }
 
@@ -51,7 +61,9 @@ public class MainMenu {
     private void resize(boolean isWidth, Number newVal){
         if(isWidth){
 
+
         }else{
+
 
         }
     }
