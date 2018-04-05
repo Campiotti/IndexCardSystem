@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
-public class MainMenu {
+public class MainMenu extends BaseView implements IView{
 
     @FXML
     public Button mainMenuCreatorBtn,mainMenuPlayBtn,mainMenuCloseBtn; //16px 75w 37h | 20px 64w 44h | 16px 61w 37h

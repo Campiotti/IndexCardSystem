@@ -6,12 +6,16 @@ import javafx.beans.property.SimpleStringProperty;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CardDeck extends BaseModel<CardDeck> implements IEntity {
 
     public SimpleStringProperty title;
     public SimpleIntegerProperty passPercent;
     public SimpleIntegerProperty cardsPerRun;
+
+    private List<IndexCard> indexCardList = new ArrayList<>();
 
     public CardDeck() throws SQLException {
         this.addProperty("title",this.title);

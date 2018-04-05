@@ -90,7 +90,7 @@ public class ErrorLogger {
     }
 
     /**
-     * private constructor so it can'temp be constructed normally / outside of the class.
+     * private constructor so it can't be constructed normally / outside of the class.
      */
     private ErrorLogger(){}
 

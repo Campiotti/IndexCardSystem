@@ -1,82 +1,50 @@
 package model;
 
 import helper.ErrorLogger;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-public class IndexCard implements IEntity{
-
-    private Question question;
-    private List<Answer> answerList;
+public class IndexCard extends BaseModel<IndexCard> implements IEntity {
+    public SimpleIntegerProperty cardDeckFk = new SimpleIntegerProperty();
+    public SimpleStringProperty question = new SimpleStringProperty();
+    public SimpleStringProperty answer = new SimpleStringProperty();
+    public SimpleBooleanProperty numberQuestion = new SimpleBooleanProperty();
 
     public IndexCard() throws SQLException {
-        this.question = new Question();
-        this.answerList = new ArrayList<>();
+        this.addProperty("cardDeckFk",this.cardDeckFk);
+        this.addProperty("question",this.question);
+        this.addProperty("answer",this.answer);
+        this.addProperty("numberQuestion",this.numberQuestion);
     }
+    public IndexCard(int cardDeckFk, String question, String answer, boolean numberQuestion) throws SQLException{
+        this.addProperty("cardDeckFk",this.cardDeckFk);
+        this.addProperty("question",this.question);
+        this.addProperty("answer",this.answer);
+        this.addProperty("numberQuestion",this.numberQuestion);
+        this.cardDeckFk.set(cardDeckFk);
+        this.question.set(question);
+        this.answer.set(answer);
+        this.numberQuestion.set(numberQuestion);
 
-    public IndexCard(Question question){
-        this.question = question;
-        this.answerList = new ArrayList<>();
-    }
-
-    public IndexCard(Question question, Answer answer){
-        this.question=question;
-        this.answerList = new ArrayList<>();
-        this.answerList.add(answer);
-    }
-
-    public IndexCard(Question question, List<Answer> answers){
-        this.question=question;
-        this.answerList = answers;
-    }
-
-
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
-
-    public Question getQuestion() {
-        return question;
-    }
-
-    public List<Answer> getAnswerList() {
-        return answerList;
-    }
-
-    public void setAnswerList(List<Answer> answerList) {
-        this.answerList = answerList;
-    }
-
-    public void addAnswer(Answer answer){
-        this.answerList.add(answer);
-    }
-
-    public void removeAnswer(Answer answer){
-        this.answerList.remove(answer);
     }
 
 
     @Override
     public void save() {
-
-    }
-
-    @Override
-    public void delete() {
-
+        try {
+            super.save();
+        } catch (SQLException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | ClassNotFoundException e) {
+            ErrorLogger.getInstance().log(e.getLocalizedMessage());
+        }
     }
 
     @Override
     public void view(int id) {
-        try {
-            this.question=new Question();
-        } catch (SQLException e) {
-            ErrorLogger.getInstance().log(e.getLocalizedMessage());
-        }
-        this.question.view(id);
-        //TODO get all answers by question id and add them to the answers list
+
     }
 
     @Override

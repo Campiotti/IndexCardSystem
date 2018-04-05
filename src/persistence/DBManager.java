@@ -29,15 +29,16 @@ public class DBManager extends Broker<DBManager>{
      * Creates all tables necessary for the program to run.
      */
     private void createTables(){
-        String tmp2="create table if not exists Question(id integer IDENTITY PRIMARY KEY auto_increment," +
+        String tmp2="create table if not exists IndexCard(id integer IDENTITY PRIMARY KEY auto_increment," +
                 "cardDeckFk integer," +
                 "question varchar(100)," +
+                "answer varchar(100)," +
                 "isNumberQuestion bool," +
                 "FOREIGN KEY(cardDeckFk) references CardDeck(id))";
-        String tmp3="create table if not exists Answer(id integer IDENTITY PRIMARY KEY auto_increment," +
+        /*String tmp3="create table if not exists Answer(id integer IDENTITY PRIMARY KEY auto_increment," +
                 "questionFk integer," +
                 "answer varchar(100)," +
-                "FOREIGN KEY(questionFk) references question(id) on delete cascade)";
+                "FOREIGN KEY(questionFk) references question(id) on delete cascade)";*/
         String tmp1="create table if not exists CardDeck(id integer IDENTITY PRIMARY KEY auto_increment," +
                 "title varchar(50)," +
                 "passPercent integer," +
@@ -45,7 +46,7 @@ public class DBManager extends Broker<DBManager>{
         try{
             update(tmp1);
             update(tmp2);
-            update(tmp3);
+            //update(tmp3);
         }catch (Exception e){
             ErrorLogger.getInstance().log(e.getLocalizedMessage());
         }
@@ -56,7 +57,7 @@ public class DBManager extends Broker<DBManager>{
      */
     private void deleteTables(){
         try{
-            update("drop table if exists Question");
+            update("drop table if exists IndexCard");
             update("drop table if exists CardDeck");
         }catch (Exception e){
             ErrorLogger.getInstance().log(e.getLocalizedMessage());
