@@ -9,10 +9,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
 public class IndexCard extends BaseModel<IndexCard> implements IEntity {
-    public SimpleIntegerProperty cardDeckFk = new SimpleIntegerProperty();
-    public SimpleStringProperty question = new SimpleStringProperty();
-    public SimpleStringProperty answer = new SimpleStringProperty();
-    public SimpleBooleanProperty numberQuestion = new SimpleBooleanProperty();
+    private SimpleIntegerProperty cardDeckFk = new SimpleIntegerProperty();
+    private SimpleStringProperty question = new SimpleStringProperty();
+    private SimpleStringProperty answer = new SimpleStringProperty();
+    private SimpleBooleanProperty numberQuestion = new SimpleBooleanProperty();
 
     public IndexCard() throws SQLException {
         this.addProperty("cardDeckFk",this.cardDeckFk);
@@ -50,5 +50,53 @@ public class IndexCard extends BaseModel<IndexCard> implements IEntity {
     @Override
     public void edit() {
 
+    }
+
+    public int getCardDeckFk() {
+        return cardDeckFk.get();
+    }
+
+    public SimpleIntegerProperty cardDeckFkProperty() {
+        return cardDeckFk;
+    }
+
+    public void setCardDeckFk(int cardDeckFk) {
+        this.cardDeckFk.set(cardDeckFk);
+    }
+
+    public String getQuestion() {
+        return question.get();
+    }
+
+    public SimpleStringProperty questionProperty() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question.set(question);
+    }
+
+    public String getAnswer() {
+        return answer.get();
+    }
+
+    public SimpleStringProperty answerProperty() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer.set(answer);
+    }
+
+    public boolean isNumberQuestion() {
+        return numberQuestion.get();
+    }
+
+    public SimpleBooleanProperty numberQuestionProperty() {
+        return numberQuestion;
+    }
+
+    public void setNumberQuestion(boolean numberQuestion) {
+        this.numberQuestion.set(numberQuestion);
     }
 }

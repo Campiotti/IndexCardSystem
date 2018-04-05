@@ -30,7 +30,10 @@ public class Creator extends BaseView implements IView{
     public TableView CDTableView;
     @FXML
     protected TableColumn CDTCName, CDTCQ, CDTCPass, CDTCCPR;
+    @FXML
     public ComboBox QACB;
+    @FXML
+    public TabPane tabPane;
 
     private static Validifier validifier = new Validifier();
 
@@ -71,12 +74,12 @@ public class Creator extends BaseView implements IView{
     }
 
     private void validifyInputs(){
-        System.out.println("validify");
+        //System.out.println("validify");
         if(validifier==null)
             validifier = new Validifier();
-        System.out.println(validifier.checkName(creatorCDNameTxt.getText(),1,24));
-        System.out.println(validifier.checkNumber(creatorCDPassPTxt.getText()));
-        System.out.println(validifier.checkNumber(creatorCDCardsPRTxt.getText()));
+       // System.out.println(validifier.checkName(creatorCDNameTxt.getText(),1,24));
+       // System.out.println(validifier.checkNumber(creatorCDPassPTxt.getText()));
+       // System.out.println(validifier.checkNumber(creatorCDCardsPRTxt.getText()));
         if(validifier.checkName(creatorCDNameTxt.getText(),1,16) && validifier.checkNumber(creatorCDCardsPRTxt.getText()) && validifier.checkNumber(creatorCDPassPTxt.getText()))
             creatorCDAddBtn.disableProperty().set(false);
     }
