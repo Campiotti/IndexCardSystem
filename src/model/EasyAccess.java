@@ -13,7 +13,7 @@ import java.util.List;
 
 public class EasyAccess {
 
-    public List<CardDeck> getAllCards(){
+    public List<CardDeck> getAllCardDecks(){
         List<CardDeck> list = new ArrayList<>();
 
         try {

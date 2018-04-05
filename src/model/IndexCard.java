@@ -4,15 +4,19 @@ import helper.ErrorLogger;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import persistence.ConnectionManager;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class IndexCard extends BaseModel<IndexCard> implements IEntity {
     private SimpleIntegerProperty cardDeckFk = new SimpleIntegerProperty();
     private SimpleStringProperty question = new SimpleStringProperty();
     private SimpleStringProperty answer = new SimpleStringProperty();
     private SimpleBooleanProperty numberQuestion = new SimpleBooleanProperty();
+    private SimpleStringProperty cardDeckName = new SimpleStringProperty();
 
     public IndexCard() throws SQLException {
         this.addProperty("cardDeckFk",this.cardDeckFk);
@@ -104,5 +108,28 @@ public class IndexCard extends BaseModel<IndexCard> implements IEntity {
         if(getAnswer().equals(answer))
             correct=true;
         return correct;
+    }
+
+    public String getCardDeckName() {
+        return cardDeckName.get();
+    }
+
+    public SimpleStringProperty cardDeckNameProperty() {
+        try {
+            String sql = "SELECT title from CARDDECK WHERE ID = "+getCardDeckFk();
+            Statement stmt = ConnectionManager.getConnection().createStatement();
+            stmt.executeQuery(sql);
+            stmt.getResultSet().next();
+            SimpleStringProperty tmp = new SimpleStringProperty();
+            tmp.set(stmt.getResultSet().getString(1));
+            return tmp;
+        } catch (SQLException | IOException e) {
+            ErrorLogger.getInstance().log(e.getLocalizedMessage());
+        }
+        return null;
+    }
+
+    public void setCardDeckName(String cardDeckName) {
+        this.cardDeckName.set(cardDeckName);
     }
 }

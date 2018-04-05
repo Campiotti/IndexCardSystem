@@ -12,8 +12,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import model.CardDeck;
 import model.EasyAccess;
+import model.IndexCard;
 import persistence.Validifier;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Creator extends BaseView implements IView{
@@ -27,16 +29,15 @@ public class Creator extends BaseView implements IView{
     @FXML
     public CheckBox QAaddMCB;
     @FXML
-    public TableView CDTableView;
+    public TableView CDTableView,QATableView;
     @FXML
-    protected TableColumn CDTCName, CDTCQ, CDTCPass, CDTCCPR;
+    protected TableColumn CDTCName, CDTCQ, CDTCPass, CDTCCPR, QATCQ, QATCA, QATCM, QATCCD;
     @FXML
-    public ComboBox QACB;
+    public ComboBox QACB,CDCB,QACB2;
     @FXML
     public TabPane tabPane;
 
     private static Validifier validifier = new Validifier();
-
 
     @FXML
     public void initialize(){
@@ -47,7 +48,45 @@ public class Creator extends BaseView implements IView{
             validateQA();
         });
 
+        CDCB.valueProperty().addListener((obs,newVal,oldVal)->{
 
+        });
+
+        QACB2.valueProperty().addListener((obs,newVal,oldVal)->{
+
+        });
+        updateCDTable();
+        updateQATable();
+        updateCDComboBox();
+        updateQAComboBox();
+        updateQAComboBox2();
+
+    }
+
+    private void initCDTable(){
+        /*CDTableView.setRowFactory( tv ->{
+            TableRow<CardDeck> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (! row.isEmpty() && event.getButton()==MouseButton.PRIMARY
+                        && event.getClickCount() == 2) {
+                    CardDeck clickedRow = row.getItem();
+                }
+            });
+            return row ;
+        });*/
+    }
+
+    private void initQATable(){
+        /*QATableView.setRowFactory( tv ->{
+            TableRow<IndexCard> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (! row.isEmpty() && event.getButton()==MouseButton.PRIMARY
+                        && event.getClickCount() == 2) {
+                    IndexCard clickedRow = row.getItem();
+                }
+            });
+            return row ;
+        });*/
     }
 
     public void creatorSysBtnA(ActionEvent actionEvent) {
@@ -119,11 +158,12 @@ public class Creator extends BaseView implements IView{
             return false;
         }
     }
+
     private void updateCDTable(){
         ObservableList<CardDeck> data = FXCollections.observableArrayList();
         CDTableView.getItems().clear();
         CDTableView.getSelectionModel().clearSelection();
-        List<CardDeck> cardDecks = new EasyAccess().getAllCards();
+        List<CardDeck> cardDecks = new EasyAccess().getAllCardDecks();
         data.addAll(cardDecks);
         CDTCName.setCellValueFactory(
                 new PropertyValueFactory<CardDeck,String>("title")
@@ -142,10 +182,53 @@ public class Creator extends BaseView implements IView{
 
     }
 
+    private void updateQATable(){
+        ObservableList<IndexCard> data = FXCollections.observableArrayList();
+        QATableView.getItems().clear();
+        QATableView.getSelectionModel().clearSelection();
+        List<IndexCard> indexCards = new EasyAccess().getAllIndexCards();
+        data.addAll(indexCards);
+        QATCA.setCellValueFactory(
+                new PropertyValueFactory<IndexCard,String>("question")
+        );
+        QATCQ.setCellValueFactory(
+                new PropertyValueFactory<IndexCard,String>("answer")
+        );
+        QATCM.setCellValueFactory(
+                new PropertyValueFactory<IndexCard,Boolean>("isNumberQuestion")
+        );
+        QATCCD.setCellValueFactory(
+                new PropertyValueFactory<IndexCard,String>("cardDeckName")
+        );
+    }
+
+    private void updateCDComboBox(){
+        CDCB.getItems().clear();
+        CDCB.getSelectionModel().clearSelection();
+        List<CardDeck> data = new ArrayList<>(new EasyAccess().getAllCardDecks());
+        for(CardDeck cardDeck: data)
+            CDCB.getItems().add(cardDeck.getTitle());
+    }
+
+    private void updateQAComboBox(){
+        QACB.getItems().clear();
+        QACB.getSelectionModel().clearSelection();
+        List<CardDeck> data = new ArrayList<>(new EasyAccess().getAllCardDecks());
+        for(CardDeck cardDeck: data)
+            QACB.getItems().add(cardDeck.getTitle());
+    }
+
+    private void updateQAComboBox2(){
+        QACB2.getItems().clear();
+        QACB2.getSelectionModel().clearSelection();
+        List<IndexCard> data = new ArrayList<>(new EasyAccess().getAllIndexCards());
+        for(IndexCard indexCard : data)
+            QACB2.getItems().add(indexCard.getQuestion());
+    }
+
     public void CDEditBtnA(ActionEvent actionEvent) {
         updateCDTable();
     }
-
 
     public void CDDeleteBtnA(ActionEvent actionEvent) {
         updateCDTable();
