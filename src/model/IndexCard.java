@@ -18,13 +18,13 @@ public class IndexCard extends BaseModel<IndexCard> implements IEntity {
         this.addProperty("cardDeckFk",this.cardDeckFk);
         this.addProperty("question",this.question);
         this.addProperty("answer",this.answer);
-        this.addProperty("numberQuestion",this.numberQuestion);
+        this.addProperty("isNumberQuestion",this.numberQuestion);
     }
     public IndexCard(int cardDeckFk, String question, String answer, boolean numberQuestion) throws SQLException{
         this.addProperty("cardDeckFk",this.cardDeckFk);
         this.addProperty("question",this.question);
         this.addProperty("answer",this.answer);
-        this.addProperty("numberQuestion",this.numberQuestion);
+        this.addProperty("isNumberQuestion",this.numberQuestion);
         this.cardDeckFk.set(cardDeckFk);
         this.question.set(question);
         this.answer.set(answer);

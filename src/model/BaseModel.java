@@ -51,6 +51,7 @@ public abstract class BaseModel<T> implements IEntity{
         String query = "INSERT INTO `" + this.tableName + "`(" + this.getColumnValues(true) + ") VALUES ( " + this.getFieldValues(true) + " );";
         Statement stmt = this.connection.createStatement();
         stmt.executeUpdate(query);
+        ErrorLogger.getInstance().log(query);
     }
 
 
@@ -123,6 +124,9 @@ public abstract class BaseModel<T> implements IEntity{
                 ErrorLogger.getInstance().log(e.getLocalizedMessage());
             }
         }
+    }
+    public void getCardDeckByName(String name){
+
     }
 
 }

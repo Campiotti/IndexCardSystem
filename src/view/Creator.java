@@ -27,8 +27,8 @@ public class Creator extends BaseView implements IView{
 
     @FXML
     public void initialize(){
-        mainAnchor.widthProperty().addListener((obs, oldVal, newVal) -> System.out.println(mainAnchor.getWidth()+" , "+mainAnchor.getHeight()));
-        mainAnchor.heightProperty().addListener((obs, oldVal, newVal) -> System.out.println(mainAnchor.getWidth()+" , "+mainAnchor.getHeight()));
+        //mainAnchor.widthProperty().addListener((obs, oldVal, newVal) -> System.out.println(mainAnchor.getWidth()+" , "+mainAnchor.getHeight()));
+        //mainAnchor.heightProperty().addListener((obs, oldVal, newVal) -> System.out.println(mainAnchor.getWidth()+" , "+mainAnchor.getHeight()));
         //System.out.println(mainAnchor.getWidth()+" , "+mainAnchor.getHeight());
     }
 
@@ -37,7 +37,9 @@ public class Creator extends BaseView implements IView{
     }
 
     public void creatorCDAddBtnA(ActionEvent actionEvent) {
-
+        int pp = Integer.parseInt(creatorCDPassPTxt.getText());
+        int cpr = Integer.parseInt(creatorCDCardsPRTxt.getText());
+        new CreatorController(this).createCardDeck(creatorCDNameTxt.getText(),pp,cpr);
     }
 
     public void creatorCDNameTxtKR(KeyEvent keyEvent) {
@@ -51,46 +53,43 @@ public class Creator extends BaseView implements IView{
     public void creatorCDCardsPRTxt(KeyEvent keyEvent) {
         validifyInputs();
     }
+
     private void validifyInputs(){
+        System.out.println("validify");
         if(validifier==null)
             validifier = new Validifier();
+        System.out.println(validifier.checkName(creatorCDNameTxt.getText(),1,24));
+        System.out.println(validifier.checkNumber(creatorCDPassPTxt.getText()));
+        System.out.println(validifier.checkNumber(creatorCDCardsPRTxt.getText()));
         if(validifier.checkName(creatorCDNameTxt.getText(),1,16) && validifier.checkNumber(creatorCDCardsPRTxt.getText()) && validifier.checkNumber(creatorCDPassPTxt.getText()))
-            creatorCDAddBtn.setDisable(false);
-    }
-
-    private void resize(int tab, Double newVal){
-        switch (tab){
-            case 1:
-                
-                break;
-            case 2:
-
-                break;
-            case 3:
-
-                break;
-        }
+            creatorCDAddBtn.disableProperty().set(false);
     }
 
     public void QAaddQTxtKT(KeyEvent keyEvent) {
     }
 
     public void QAaddAtxtKT(KeyEvent keyEvent) {
+        quickMaths();
     }
 
     public void QAaddMCBA(ActionEvent actionEvent) {
+        quickMaths();
+    }
+
+    public void QAaddQBtnA(ActionEvent actionEvent) {
+        new CreatorController(this).addCard(QAaddQtxt.getText(),QAaddAtxt.getText(),QAaddMCB.isSelected());
+    }
+
+    private void quickMaths(){
         if(QAaddMCB.isSelected()){
             try{
                 Integer.parseInt(QAaddAtxt.getText());
                 QAaddQBtn.disableProperty().set(false);
             }catch (Exception ignored){
-                QAaddQBtn.setDisable(true);
+                QAaddQBtn.disableProperty().set(true);
             }
         }else{
             QAaddQBtn.disableProperty().set(false);
         }
-    }
-
-    public void QAaddQBtnA(ActionEvent actionEvent) {
     }
 }

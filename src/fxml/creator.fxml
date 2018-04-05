@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainAnchor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Creator">
+<AnchorPane fx:id="mainAnchor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Creator">
     <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <Tab text="CardDecks">
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -23,9 +23,9 @@
                     <TextField fx:id="creatorCDNameTxt" onKeyReleased="#creatorCDNameTxtKR" promptText="Name" />
                     <TextField fx:id="creatorCDPassPTxt" onKeyReleased="#creatorCDPassPTxtKR" promptText="Pass Percent" />
                     <TextField fx:id="creatorCDCardsPRTxt" onKeyReleased="#creatorCDCardsPRTxt" promptText="Cards Per Run" />
-                    <Button fx:id="creatorCDAddBtn" mnemonicParsing="false" onAction="#creatorCDAddBtnA" text="Add CardDeck" />
+                    <Button fx:id="creatorCDAddBtn" disable="true" mnemonicParsing="false" onAction="#creatorCDAddBtnA" text="Add CardDeck" />
                 </VBox>
-                <TableView prefHeight="200.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <TableView fx:id="CDTableView" prefHeight="200.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                         <TableColumn editable="false" prefWidth="75.0" text="Name" />
                         <TableColumn prefWidth="75.0" text="Questions" />
@@ -52,7 +52,7 @@
                   <children>
                      <AnchorPane fx:id="QAAnchorTL" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                         <children>
-                           <TextField fx:id="QAaddQTxt" layoutX="26.0" layoutY="52.0" onKeyTyped="#QAaddQTxtKT" promptText="Question" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="52.0" />
+                           <TextField fx:id="QAaddQtxt" layoutX="26.0" layoutY="52.0" onKeyTyped="#QAaddQTxtKT" promptText="Question" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="52.0" />
                            <TextField fx:id="QAaddAtxt" layoutX="25.0" layoutY="93.0" onKeyTyped="#QAaddAtxtKT" promptText="Answer" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="93.0" />
                            <CheckBox fx:id="QAaddMCB" layoutX="25.0" layoutY="142.0" mnemonicParsing="false" onAction="#QAaddMCBA" text="Math" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="102.0" AnchorPane.topAnchor="142.0" />
                            <Button fx:id="QAaddQBtn" layoutX="123.0" layoutY="138.0" mnemonicParsing="false" onAction="#QAaddQBtnA" text="Create" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="123.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="138.0" />

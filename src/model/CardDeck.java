@@ -11,9 +11,9 @@ import java.util.List;
 
 public class CardDeck extends BaseModel<CardDeck> implements IEntity {
 
-    public SimpleStringProperty title;
-    public SimpleIntegerProperty passPercent;
-    public SimpleIntegerProperty cardsPerRun;
+    public SimpleStringProperty title = new SimpleStringProperty();
+    public SimpleIntegerProperty passPercent = new SimpleIntegerProperty();
+    public SimpleIntegerProperty cardsPerRun = new SimpleIntegerProperty();
 
     private List<IndexCard> indexCardList = new ArrayList<>();
 
