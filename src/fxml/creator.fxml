@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainAnchor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Creator">
+<AnchorPane fx:id="mainAnchor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Creator">
     <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <Tab text="CardDecks">
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -48,8 +48,7 @@
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
                         <Button fx:id="CDEditBtn" layoutX="14.0" layoutY="36.0" mnemonicParsing="false" onAction="#CDEditBtnA" text="Edit" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="116.0" AnchorPane.topAnchor="32.0" />
-                        <Button fx:id="CDUpdateBtn" layoutX="14.0" layoutY="74.0" mnemonicParsing="false" onAction="#CDUpdateBtnA" text="Update" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="116.0" AnchorPane.topAnchor="68.0" />
-                        <Button fx:id="CDDeleteBtn" layoutX="14.0" layoutY="117.0" mnemonicParsing="false" onAction="#CDDeleteBtnA" text="Delete" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="116.0" AnchorPane.topAnchor="102.0" />
+                        <Button fx:id="CDDeleteBtn" layoutX="14.0" layoutY="74.0" mnemonicParsing="false" onAction="#CDDeleteBtnA" text="Delete" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="116.0" AnchorPane.topAnchor="68.0" />
                      </children>
                   </AnchorPane>
                </children>
@@ -62,23 +61,35 @@
                <GridPane layoutY="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                  <columnConstraints>
                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="350.0" />
+                     <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                  </columnConstraints>
                  <rowConstraints>
-                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     <RowConstraints minHeight="10.0" prefHeight="200.0" vgrow="NEVER" />
-                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     <RowConstraints minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
                  </rowConstraints>
                   <children>
-                     <AnchorPane fx:id="QAAnchorTL" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <AnchorPane fx:id="QAAnchorTL" prefHeight="200.0" prefWidth="200.0">
                         <children>
-                           <TextField fx:id="QAaddQtxt" layoutX="26.0" layoutY="52.0" onKeyTyped="#QAaddQTxtKT" promptText="Question" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="52.0" />
-                           <TextField fx:id="QAaddAtxt" layoutX="25.0" layoutY="93.0" onKeyTyped="#QAaddAtxtKT" promptText="Answer" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="93.0" />
-                           <CheckBox fx:id="QAaddMCB" layoutX="25.0" layoutY="162.0" mnemonicParsing="false" onAction="#QAaddMCBA" text="Math" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="102.0" AnchorPane.topAnchor="162.0" />
-                           <Button fx:id="QAaddQBtn" layoutX="147.0" layoutY="158.0" mnemonicParsing="false" onAction="#QAaddQBtnA" text="Create" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="172.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="158.0" />
-                           <Label layoutX="25.0" layoutY="22.0" text="Add Question" AnchorPane.bottomAnchor="147.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="22.0" />
-                           <ComboBox fx:id="QACB" layoutX="25.0" layoutY="126.0" prefWidth="150.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="126.0" />
+                           <TextField fx:id="QAaddQtxt" layoutX="26.0" layoutY="52.0" onKeyTyped="#QAaddQTxtKT" promptText="Question" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="80.0" />
+                           <TextField fx:id="QAaddAtxt" layoutX="25.0" layoutY="93.0" onKeyTyped="#QAaddAtxtKT" promptText="Answer" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="120.0" />
+                           <CheckBox fx:id="QAaddMCB" layoutX="176.0" layoutY="154.0" mnemonicParsing="false" onAction="#QAaddMCBA" text="Math" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="154.0" />
+                           <Button fx:id="QAaddQBtn" layoutX="148.0" layoutY="181.0" mnemonicParsing="false" onAction="#QAaddQBtnA" text="Create" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="181.0" />
+                           <Label layoutX="25.0" layoutY="22.0" text="Add Question" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="48.0" />
+                           <ComboBox fx:id="QACB" layoutX="25.0" layoutY="126.0" prefWidth="150.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="150.0" />
+                        </children>
+                     </AnchorPane>
+                     <TableView fx:id="QATB" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+                       <columns>
+                         <TableColumn fx:id="QATCQ" editable="false" prefWidth="75.0" text="Question" />
+                         <TableColumn fx:id="QATCA" editable="false" prefWidth="75.0" text="Answer" />
+                           <TableColumn fx:id="QATCM" editable="false" prefWidth="75.0" text="Math" />
+                           <TableColumn fx:id="QATCCD" editable="false" prefWidth="75.0" text="CardDeck" />
+                       </columns>
+                     </TableView>
+                     <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                        <children>
+                           <Button fx:id="QAEditBtn" layoutX="14.0" layoutY="48.0" mnemonicParsing="false" onAction="#QAEditBtnA" text="Edit" AnchorPane.topAnchor="48.0" />
+                           <Button fx:id="QADeleteBtn" layoutX="14.0" layoutY="90.0" mnemonicParsing="false" onAction="#QADeleteBtnA" text="Delete" AnchorPane.topAnchor="90.0" />
                         </children>
                      </AnchorPane>
                   </children>

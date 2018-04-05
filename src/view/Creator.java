@@ -21,7 +21,7 @@ public class Creator extends BaseView implements IView{
     @FXML
     public TextField creatorCDNameTxt,creatorCDPassPTxt,creatorCDCardsPRTxt, QAaddAtxt, QAaddQtxt;
     @FXML
-    public Button creatorCDAddBtn, creatorSysBtn, QAaddQBtn, CDEditBtn, CDUpdateBtn, CDDeleteBtn;
+    public Button creatorCDAddBtn, creatorSysBtn, QAaddQBtn, CDEditBtn, CDDeleteBtn, QAEditBtn,QADeleteBtn;
     @FXML
     public AnchorPane QAAnchorTL, mainAnchor;
     @FXML
@@ -146,11 +146,14 @@ public class Creator extends BaseView implements IView{
         updateCDTable();
     }
 
-    public void CDUpdateBtnA(ActionEvent actionEvent) {
-        updateCDTable();
-    }
 
     public void CDDeleteBtnA(ActionEvent actionEvent) {
         updateCDTable();
+    }
+
+    public void QAEditBtnA(ActionEvent actionEvent) {
+    }
+
+    public void QADeleteBtnA(ActionEvent actionEvent) {
     }
 }
