@@ -37,7 +37,11 @@ public class Creator extends BaseView implements IView{
     @FXML
     public TabPane tabPane;
 
+    public Label CDLbl,QALbl;
+
     private static Validifier validifier = new Validifier();
+
+    private static String curCardDeck,curIndexCard;
 
     @FXML
     public void initialize(){
@@ -49,44 +53,33 @@ public class Creator extends BaseView implements IView{
         });
 
         CDCB.valueProperty().addListener((obs,newVal,oldVal)->{
-
+            CDEditBtn.disableProperty().set(false);
+            CDDeleteBtn.disableProperty().set(false);
         });
 
         QACB2.valueProperty().addListener((obs,newVal,oldVal)->{
-
+            QAEditBtn.disableProperty().set(false);
+            QADeleteBtn.disableProperty().set(false);
         });
-        updateCDTable();
+        updateTablesAndComboBoxes();
+
+    }
+
+    private void updateTablesAndComboBoxes(){
         updateQATable();
+        updateCDTable();
         updateCDComboBox();
         updateQAComboBox();
         updateQAComboBox2();
-
+        disableButtons();
     }
-
-    private void initCDTable(){
-        /*CDTableView.setRowFactory( tv ->{
-            TableRow<CardDeck> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (! row.isEmpty() && event.getButton()==MouseButton.PRIMARY
-                        && event.getClickCount() == 2) {
-                    CardDeck clickedRow = row.getItem();
-                }
-            });
-            return row ;
-        });*/
-    }
-
-    private void initQATable(){
-        /*QATableView.setRowFactory( tv ->{
-            TableRow<IndexCard> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (! row.isEmpty() && event.getButton()==MouseButton.PRIMARY
-                        && event.getClickCount() == 2) {
-                    IndexCard clickedRow = row.getItem();
-                }
-            });
-            return row ;
-        });*/
+    private void disableButtons(){
+        CDDeleteBtn.setDisable(true);
+        CDEditBtn.setDisable(true);
+        QADeleteBtn.setDisable(true);
+        QAEditBtn.setDisable(true);
+        QAaddQBtn.setDisable(true);
+        creatorCDAddBtn.setDisable(true);
     }
 
     public void creatorSysBtnA(ActionEvent actionEvent) {
@@ -119,7 +112,7 @@ public class Creator extends BaseView implements IView{
        // System.out.println(validifier.checkName(creatorCDNameTxt.getText(),1,24));
        // System.out.println(validifier.checkNumber(creatorCDPassPTxt.getText()));
        // System.out.println(validifier.checkNumber(creatorCDCardsPRTxt.getText()));
-        if(validifier.checkName(creatorCDNameTxt.getText(),1,16) && validifier.checkNumber(creatorCDCardsPRTxt.getText()) && validifier.checkNumber(creatorCDPassPTxt.getText()))
+        if(validifier.checkName(creatorCDNameTxt.getText(),1,24) && validifier.checkNumber(creatorCDCardsPRTxt.getText()) && validifier.checkNumber(creatorCDPassPTxt.getText()))
             creatorCDAddBtn.disableProperty().set(false);
     }
 
@@ -139,10 +132,10 @@ public class Creator extends BaseView implements IView{
     }
 
     private void validateQA(){
-        boolean disbableBtn=true;
+        boolean disable=true;
         if(quickMaths() && QACB.valueProperty().get()!=null)
-            disbableBtn=false;
-        QAaddQBtn.disableProperty().set(disbableBtn);
+            disable=false;
+        QAaddQBtn.disableProperty().set(disable);
 
     }
 
@@ -200,6 +193,7 @@ public class Creator extends BaseView implements IView{
         QATCCD.setCellValueFactory(
                 new PropertyValueFactory<IndexCard,String>("cardDeckName")
         );
+        QATableView.setItems(data);
     }
 
     private void updateCDComboBox(){
@@ -227,6 +221,7 @@ public class Creator extends BaseView implements IView{
     }
 
     public void CDEditBtnA(ActionEvent actionEvent) {
+
         updateCDTable();
     }
 

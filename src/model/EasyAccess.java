@@ -55,4 +55,27 @@ public class EasyAccess {
         return list;
     }
 
+    public int getCardDeckIdByTitle(String title){
+        try {
+            String sql="SELECT ID FROM CARDDECK WHERE TITLE='"+title+"'";
+            Statement stmt = ConnectionManager.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            rs.next(); rs.getInt(1);
+        } catch (SQLException | IOException e) {
+            ErrorLogger.getInstance().log(e.getLocalizedMessage());
+        }
+        return 0;
+    }
+
+    public int getIndexCardIdByQuestion(String question){
+        try {
+            String sql="SELECT ID FROM INDEXCARD WHERE QUESTION='"+question+"'";
+            Statement stmt = ConnectionManager.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            rs.next(); rs.getInt(1);
+        } catch (SQLException | IOException e) {
+            ErrorLogger.getInstance().log(e.getLocalizedMessage());
+        }
+        return 0;
+    }
 }

@@ -43,12 +43,13 @@
                              <TextField fx:id="creatorCDPassPTxt" layoutX="16.0" layoutY="69.0" onKeyReleased="#creatorCDPassPTxtKR" promptText="Pass Percent" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="68.0" />
                              <TextField fx:id="creatorCDCardsPRTxt" layoutX="19.0" layoutY="104.0" onKeyReleased="#creatorCDCardsPRTxt" promptText="Cards Per Run" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="102.0" />
                              <Button fx:id="creatorCDAddBtn" disable="true" layoutX="39.0" layoutY="153.0" mnemonicParsing="false" onAction="#creatorCDAddBtnA" text="Save" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="67.0" AnchorPane.topAnchor="153.0" />
+                        <Label fx:id="CDLbl" layoutX="21.0" layoutY="127.0" text="ID-PlaceHolder" visible="false" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="67.0" AnchorPane.topAnchor="135.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <Button fx:id="CDEditBtn" layoutX="14.0" layoutY="36.0" mnemonicParsing="false" onAction="#CDEditBtnA" text="Edit" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="116.0" AnchorPane.topAnchor="32.0" />
-                        <Button fx:id="CDDeleteBtn" layoutX="14.0" layoutY="74.0" mnemonicParsing="false" onAction="#CDDeleteBtnA" text="Delete" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="116.0" AnchorPane.topAnchor="68.0" />
+                        <Button fx:id="CDEditBtn" disable="true" layoutX="14.0" layoutY="36.0" mnemonicParsing="false" onAction="#CDEditBtnA" text="Edit" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="116.0" AnchorPane.topAnchor="32.0" />
+                        <Button fx:id="CDDeleteBtn" disable="true" layoutX="14.0" layoutY="74.0" mnemonicParsing="false" onAction="#CDDeleteBtnA" text="Delete" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="116.0" AnchorPane.topAnchor="68.0" />
                         <ComboBox fx:id="CDCB" layoutX="16.0" layoutY="104.0" prefWidth="150.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="104.0" />
                      </children>
                   </AnchorPane>
@@ -74,9 +75,10 @@
                            <TextField fx:id="QAaddQtxt" layoutX="26.0" layoutY="52.0" onKeyTyped="#QAaddQTxtKT" promptText="Question" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="80.0" />
                            <TextField fx:id="QAaddAtxt" layoutX="25.0" layoutY="93.0" onKeyTyped="#QAaddAtxtKT" promptText="Answer" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="120.0" />
                            <CheckBox fx:id="QAaddMCB" layoutX="176.0" layoutY="154.0" mnemonicParsing="false" onAction="#QAaddMCBA" text="Math" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="154.0" />
-                           <Button fx:id="QAaddQBtn" layoutX="148.0" layoutY="181.0" mnemonicParsing="false" onAction="#QAaddQBtnA" text="Save" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="181.0" />
-                           <Label layoutX="25.0" layoutY="22.0" text="Add Question" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="48.0" />
+                           <Button fx:id="QAaddQBtn" disable="true" layoutX="148.0" layoutY="181.0" mnemonicParsing="false" onAction="#QAaddQBtnA" text="Save" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="181.0" />
+                           <Label layoutX="25.0" layoutY="22.0" text="IndexCard" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="48.0" />
                            <ComboBox fx:id="QACB" layoutX="25.0" layoutY="126.0" prefWidth="150.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="150.0" />
+                           <Label fx:id="QALbl" layoutX="26.0" layoutY="185.0" text="ID-PlaceHolder" visible="false" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="144.0" AnchorPane.topAnchor="185.0" />
                         </children>
                      </AnchorPane>
                      <TableView fx:id="QATableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
@@ -89,8 +91,8 @@
                      </TableView>
                      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                         <children>
-                           <Button fx:id="QAEditBtn" layoutX="14.0" layoutY="48.0" mnemonicParsing="false" onAction="#QAEditBtnA" text="Edit" AnchorPane.topAnchor="48.0" />
-                           <Button fx:id="QADeleteBtn" layoutX="14.0" layoutY="90.0" mnemonicParsing="false" onAction="#QADeleteBtnA" text="Delete" AnchorPane.topAnchor="90.0" />
+                           <Button fx:id="QAEditBtn" disable="true" layoutX="14.0" layoutY="48.0" mnemonicParsing="false" onAction="#QAEditBtnA" text="Edit" AnchorPane.topAnchor="48.0" />
+                           <Button fx:id="QADeleteBtn" disable="true" layoutX="14.0" layoutY="90.0" mnemonicParsing="false" onAction="#QADeleteBtnA" text="Delete" AnchorPane.topAnchor="90.0" />
                            <ComboBox fx:id="QACB2" layoutX="11.0" layoutY="126.0" prefWidth="150.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="126.0" />
                         </children>
                      </AnchorPane>

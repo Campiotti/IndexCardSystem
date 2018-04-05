@@ -94,9 +94,21 @@ public abstract class BaseModel<T> implements IEntity{
 
     public void update() {
         try {
-            String columsOneString = this.getColumnValues(true);
-            String Values = this.getFieldValues(true);
-        } catch (IllegalAccessException | NoSuchMethodException | ClassNotFoundException | InvocationTargetException e) {
+            List<String> columns = getListByCommaString(getColumnValues(true));
+            List<String> values = getListByCommaString(getFieldValues(true));
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("UPDATE "+this.tableName+" SET ");
+            for (int i = 0; i < columns.size(); i++) {
+                stringBuilder.append(columns.get(i));
+                stringBuilder.append(" = ");
+                stringBuilder.append(values.get(i)+", ");
+            }
+            String sql = stringBuilder.toString();
+            sql=replaceLastOccurence(sql);
+            sql+=" WHERE ID = "+this.id.get();
+            Statement stmt = this.connection.createStatement();
+            stmt.execute(sql);
+        } catch (IllegalAccessException | NoSuchMethodException | ClassNotFoundException | InvocationTargetException | SQLException e) {
             ErrorLogger.getInstance().log(e.getLocalizedMessage());
         }
 
@@ -132,15 +144,8 @@ public abstract class BaseModel<T> implements IEntity{
         }
     }
     public List<String> getListByCommaString(String commaList){
-        List<String> list = new ArrayList<>();
-        int counter=0;
-        StringBuilder stringBuilder = new StringBuilder();
-        while(true){
-            counter=(commaList.indexOf(counter));
-            if(counter==commaList.length())
-                break;
-        }
-        return list;
+
+        return new ArrayList<>(Arrays.asList(commaList.split(",")));
     }
 
 }
