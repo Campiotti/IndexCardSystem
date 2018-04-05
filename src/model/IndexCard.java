@@ -99,4 +99,10 @@ public class IndexCard extends BaseModel<IndexCard> implements IEntity {
     public void setNumberQuestion(boolean numberQuestion) {
         this.numberQuestion.set(numberQuestion);
     }
+    public boolean checkAnswer(String answer){
+        boolean correct=false;
+        if(getAnswer().equals(answer))
+            correct=true;
+        return correct;
+    }
 }
