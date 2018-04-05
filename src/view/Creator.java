@@ -11,11 +11,11 @@ import persistence.Validifier;
 public class Creator {
 
     @FXML
-    private TextField creatorCDNameTxt,creatorCDPassPTxt,creatorCDCardsPRTxt;
+    public TextField creatorCDNameTxt,creatorCDPassPTxt,creatorCDCardsPRTxt;
     @FXML
-    private Button creatorCDAddBtn, creatorSysBtn;
+    public Button creatorCDAddBtn, creatorSysBtn;
 
-    private Validifier validifier = new Validifier();
+    private static Validifier validifier = new Validifier();
 
     public void creatorSysBtnA(ActionEvent actionEvent) {
         ScreenController.getInstance().activate("mainMenu");
@@ -40,6 +40,8 @@ public class Creator {
     }
     //TODO fix nullpointer which is occuring for some reason (prob just do if validifier == null ...
     private void validifyInputs(){
+        if(validifier==null)
+            validifier = new Validifier();
         if(validifier.checkName(creatorCDNameTxt.getText(),1,16) && validifier.checkNumber(creatorCDCardsPRTxt.getText()) && validifier.checkNumber(creatorCDPassPTxt.getText()))
             creatorCDAddBtn.setDisable(false);
     }

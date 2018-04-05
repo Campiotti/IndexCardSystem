@@ -1,14 +1,17 @@
 package model;
 
+import helper.ErrorLogger;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IndexCard extends BaseEntity implements IEntity{
+public class IndexCard implements IEntity{
 
     private Question question;
     private List<Answer> answerList;
 
-    public IndexCard(){
+    public IndexCard() throws SQLException {
         this.question = new Question();
         this.answerList = new ArrayList<>();
     }
@@ -67,7 +70,11 @@ public class IndexCard extends BaseEntity implements IEntity{
 
     @Override
     public void view(int id) {
-        this.question=new Question();
+        try {
+            this.question=new Question();
+        } catch (SQLException e) {
+            ErrorLogger.getInstance().log(e.getLocalizedMessage());
+        }
         this.question.view(id);
         //TODO get all answers by question id and add them to the answers list
     }

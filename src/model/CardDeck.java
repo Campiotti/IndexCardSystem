@@ -1,30 +1,31 @@
 package model;
 
-public class CardDeck extends BaseEntity implements IEntity {
+import helper.ErrorLogger;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
-    private int id;
-    private String title;
-    private int passPercent;
-    private int cardsPerRun;
+import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 
-    public CardDeck(){}
+public class CardDeck extends BaseModel<CardDeck> implements IEntity {
 
-    public CardDeck(String title, int passPercent, int cardsPerRun){
-        this.title=title;
-        this.passPercent=passPercent;
-        this.cardsPerRun=cardsPerRun;
-    }
+    public SimpleStringProperty title;
+    public SimpleIntegerProperty passPercent;
+    public SimpleIntegerProperty cardsPerRun;
 
-    public CardDeck(int id,String title, int passPercent, int cardsPerRun){
-        this.id=id;
-        this.title=title;
-        this.passPercent=passPercent;
-        this.cardsPerRun=cardsPerRun;
+    public CardDeck() throws SQLException {
+        this.addProperty("title",this.title);
+        this.addProperty("passPercent",this.passPercent);
+        this.addProperty("cardsPerRun",this.cardsPerRun);
     }
 
     @Override
     public void save() {
-
+        try {
+            super.save();
+        } catch (SQLException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | ClassNotFoundException e) {
+            ErrorLogger.getInstance().log(e.getLocalizedMessage());
+        }
     }
 
     @Override
@@ -40,40 +41,5 @@ public class CardDeck extends BaseEntity implements IEntity {
     @Override
     public void edit() {
 
-    }
-
-
-    @Override
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public int getPassPercent() {
-        return passPercent;
-    }
-
-    public void setPassPercent(int passPercent) {
-        this.passPercent = passPercent;
-    }
-
-    public int getCardsPerRun() {
-        return cardsPerRun;
-    }
-
-    public void setCardsPerRun(int cardsPerRun) {
-        this.cardsPerRun = cardsPerRun;
     }
 }

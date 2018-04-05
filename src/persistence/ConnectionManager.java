@@ -7,7 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-class ConnectionManager {
+public class ConnectionManager {
     private static final String FILE = "/db.properties";
     private static Connection con;
 

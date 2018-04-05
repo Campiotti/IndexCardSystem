@@ -1,11 +1,14 @@
 package model;
 
+import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
+
 public interface IEntity {
 
     /**
      * Saves the model into the database
      */
-    void save();
+    void save() throws SQLException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, ClassNotFoundException;
 
     /**
      * removes the model from the database

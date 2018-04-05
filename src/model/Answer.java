@@ -1,49 +1,43 @@
 package model;
 
-public class Answer extends BaseEntity implements IEntity,QandA {
-    private int id;
-    private int questionFk;
-    private String answer;
-    private boolean correct;
+import helper.ErrorLogger;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
-    public Answer(){}
+import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 
-    public Answer(String answer){
-        this.answer=answer;
+public class Answer extends BaseModel<Answer> implements IEntity,QandA {
+    public SimpleIntegerProperty questionFk = new SimpleIntegerProperty();
+    public SimpleStringProperty answer = new SimpleStringProperty();
+    public SimpleBooleanProperty correct = new SimpleBooleanProperty();
+
+    public Answer() throws SQLException {
+        this.addProperty("questionFk",this.questionFk);
+        this.addProperty("answer",this.answer);
+        this.addProperty("correct",this.correct);
     }
-
-    public Answer(String answer, boolean correct){
-        this.answer=answer;
-        this.correct=correct;
-    }
-
-    public Answer(String answer, int questionFk, boolean correct){
-        this.answer=answer;
-        this.questionFk= questionFk;
-        this.correct=correct;
-    }
-
-    public Answer(int id,String answer, int questionFk, boolean correct){
-        this.id=id;
-        this.answer=answer;
-        this.questionFk= questionFk;
-        this.correct=correct;
-    }
-
 
     @Override
     public void save() {
-
+        try {
+            super.save();
+        } catch (SQLException | IllegalAccessException | NoSuchMethodException | ClassNotFoundException | InvocationTargetException e) {
+            ErrorLogger.getInstance().log(e.getLocalizedMessage());
+        }
     }
 
     @Override
     public void delete() {
 
+
+
     }
 
     @Override
     public void view(int id) {
-        this.id=id;
+
         //todo get data from answerBroker and put it into variables.
 
     }
@@ -61,38 +55,5 @@ public class Answer extends BaseEntity implements IEntity,QandA {
     @Override
     public void setText(String key, Object value) {
 
-    }
-
-    @Override
-    public int getId() {
-        return id;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getQuestionFk() {
-        return questionFk;
-    }
-
-    public void setQuestionFk(int questionFk) {
-        this.questionFk = questionFk;
-    }
-
-    public boolean isCorrect() {
-        return correct;
-    }
-
-    public void setCorrect(boolean correct) {
-        this.correct = correct;
     }
 }

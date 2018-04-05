@@ -7,6 +7,8 @@ import model.Answer;
 import model.QandA;
 import model.Question;
 
+import java.sql.SQLException;
+
 public class Factory {
 
     public IController getController(String type){
@@ -20,7 +22,7 @@ public class Factory {
         }
     }
 
-    public QandA getQorA(String type){
+    public QandA getQorA(String type) throws SQLException {
         switch (type.toLowerCase()){
             case"answer":
                 return new Answer();

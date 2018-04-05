@@ -1,15 +1,13 @@
 package view;
 
-import helper.ErrorLogger;
 import ics.Main;
 import ics.ScreenController;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
+import javafx.scene.layout.GridPane;
 
 public class MainMenu {
 
@@ -17,11 +15,21 @@ public class MainMenu {
     public Button mainMenuCreatorBtn,mainMenuPlayBtn,mainMenuCloseBtn;
     @FXML
     public AnchorPane mainMenuPane;
-
+    @FXML
+    public ImageView mainMenuImage;
+    @FXML
+    public GridPane mainMenuGridPane;
 
 
     @FXML
     public void initialize(){
+        mainMenuPane.widthProperty().addListener((obs, oldVal, newVal) ->{
+            resize(true,newVal);
+        });
+
+        mainMenuPane.heightProperty().addListener((obs, oldVal, newVal) ->{
+            resize(false,newVal);
+        });
     }
 
     @FXML
@@ -38,5 +46,13 @@ public class MainMenu {
     @FXML
     public void mainMenuCreatorBtnA(ActionEvent actionEvent) {
         ScreenController.getInstance().activate("creator");
+    }
+
+    private void resize(boolean isWidth, Number newVal){
+        if(isWidth){
+
+        }else{
+
+        }
     }
 }
