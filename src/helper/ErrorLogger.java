@@ -48,9 +48,9 @@ public class ErrorLogger {
             File f = new File(file);
             FileOutputStream outputStream;
             //append makes sure that it adds to the file instead of overwriting all of it's contents
-            if(!emptied&&file.equals(defaultFile)){
+            if(!instance.emptied&&file.equals(defaultFile)){
                 outputStream = new FileOutputStream(f, false);
-                emptied=true;
+                instance.emptied=true;
             }else
                 outputStream= new FileOutputStream(f,true);
             byte content[] = text.getBytes();
