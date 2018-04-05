@@ -93,6 +93,12 @@ public abstract class BaseModel<T> implements IEntity{
 
 
     public void update() {
+        try {
+            String columsOneString = this.getColumnValues(true);
+            String Values = this.getFieldValues(true);
+        } catch (IllegalAccessException | NoSuchMethodException | ClassNotFoundException | InvocationTargetException e) {
+            ErrorLogger.getInstance().log(e.getLocalizedMessage());
+        }
 
     }
 
@@ -125,8 +131,16 @@ public abstract class BaseModel<T> implements IEntity{
             }
         }
     }
-    public void getCardDeckByName(String name){
-
+    public List<String> getListByCommaString(String commaList){
+        List<String> list = new ArrayList<>();
+        int counter=0;
+        StringBuilder stringBuilder = new StringBuilder();
+        while(true){
+            counter=(commaList.indexOf(counter));
+            if(counter==commaList.length())
+                break;
+        }
+        return list;
     }
 
 }

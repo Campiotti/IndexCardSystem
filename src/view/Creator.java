@@ -2,25 +2,35 @@ package view;
 
 import controller.CreatorController;
 import ics.ScreenController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import model.CardDeck;
+import model.EasyAccess;
 import persistence.Validifier;
+
+import java.util.List;
 
 public class Creator extends BaseView implements IView{
 
     @FXML
     public TextField creatorCDNameTxt,creatorCDPassPTxt,creatorCDCardsPRTxt, QAaddAtxt, QAaddQtxt;
     @FXML
-    public Button creatorCDAddBtn, creatorSysBtn, QAaddQBtn;
+    public Button creatorCDAddBtn, creatorSysBtn, QAaddQBtn, CDEditBtn, CDUpdateBtn, CDDeleteBtn;
     @FXML
     public AnchorPane QAAnchorTL, mainAnchor;
     @FXML
     public CheckBox QAaddMCB;
+    @FXML
+    public TableView CDTableView;
+    @FXML
+    protected TableColumn CDTCName, CDTCQ, CDTCPass, CDTCCPR;
+    public ComboBox QACB;
 
     private static Validifier validifier = new Validifier();
 
@@ -30,6 +40,11 @@ public class Creator extends BaseView implements IView{
         //mainAnchor.widthProperty().addListener((obs, oldVal, newVal) -> System.out.println(mainAnchor.getWidth()+" , "+mainAnchor.getHeight()));
         //mainAnchor.heightProperty().addListener((obs, oldVal, newVal) -> System.out.println(mainAnchor.getWidth()+" , "+mainAnchor.getHeight()));
         //System.out.println(mainAnchor.getWidth()+" , "+mainAnchor.getHeight());
+        QACB.valueProperty().addListener((obs,newVal,oldVal)->{
+            validateQA();
+        });
+
+
     }
 
     public void creatorSysBtnA(ActionEvent actionEvent) {
@@ -40,6 +55,7 @@ public class Creator extends BaseView implements IView{
         int pp = Integer.parseInt(creatorCDPassPTxt.getText());
         int cpr = Integer.parseInt(creatorCDCardsPRTxt.getText());
         new CreatorController(this).createCardDeck(creatorCDNameTxt.getText(),pp,cpr);
+        updateCDTable();
     }
 
     public void creatorCDNameTxtKR(KeyEvent keyEvent) {
@@ -69,27 +85,69 @@ public class Creator extends BaseView implements IView{
     }
 
     public void QAaddAtxtKT(KeyEvent keyEvent) {
-        quickMaths();
+        validateQA();
     }
 
     public void QAaddMCBA(ActionEvent actionEvent) {
-        quickMaths();
+        validateQA();
     }
 
     public void QAaddQBtnA(ActionEvent actionEvent) {
         new CreatorController(this).addCard(QAaddQtxt.getText(),QAaddAtxt.getText(),QAaddMCB.isSelected());
     }
 
-    private void quickMaths(){
+    private void validateQA(){
+        boolean disbableBtn=true;
+        if(quickMaths() && QACB.valueProperty().get()!=null)
+            disbableBtn=false;
+        QAaddQBtn.disableProperty().set(disbableBtn);
+
+    }
+
+    private boolean quickMaths(){
         if(QAaddMCB.isSelected()){
             try{
                 Integer.parseInt(QAaddAtxt.getText());
-                QAaddQBtn.disableProperty().set(false);
+                return false;
             }catch (Exception ignored){
-                QAaddQBtn.disableProperty().set(true);
+                return true;
             }
         }else{
-            QAaddQBtn.disableProperty().set(false);
+            return false;
         }
+    }
+    private void updateCDTable(){
+        ObservableList<CardDeck> data = FXCollections.observableArrayList();
+        CDTableView.getItems().clear();
+        CDTableView.getSelectionModel().clearSelection();
+        List<CardDeck> cardDecks = new EasyAccess().getAllCards();
+        data.addAll(cardDecks);
+        CDTCName.setCellValueFactory(
+                new PropertyValueFactory<CardDeck,String>("title")
+        );
+        CDTCQ.setCellValueFactory(
+                new PropertyValueFactory<EasyAccess,Integer>("cardCount")
+        );
+        CDTCPass.setCellValueFactory(
+                new PropertyValueFactory<CardDeck,Integer>("passPercent")
+        );
+        CDTCCPR.setCellValueFactory(
+                new PropertyValueFactory<CardDeck,Integer>("cardsPerRun")
+        );
+        CDTableView.setItems(data);
+
+
+    }
+
+    public void CDEditBtnA(ActionEvent actionEvent) {
+        updateCDTable();
+    }
+
+    public void CDUpdateBtnA(ActionEvent actionEvent) {
+        updateCDTable();
+    }
+
+    public void CDDeleteBtnA(ActionEvent actionEvent) {
+        updateCDTable();
     }
 }
