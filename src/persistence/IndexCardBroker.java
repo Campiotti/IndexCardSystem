@@ -11,7 +11,7 @@ public class IndexCardBroker extends Broker<IndexCard>{
     private static IndexCardBroker instance;
 
     @Override
-    protected IndexCard makeObject(ResultSet rs) throws SQLException {
+    protected IndexCard makeObject(ResultSet rs) {
         return null;
     }
 

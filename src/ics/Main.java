@@ -2,14 +2,12 @@ package ics;
 
 import helper.ErrorLogger;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import persistence.DBManager;
-import view.MainMenu;
 
 public class Main extends Application {
     //http://www.leepoint.net/GUI/structure/40mvc.html

@@ -3,7 +3,6 @@ package persistence;
 import helper.ErrorLogger;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class DBManager extends Broker<DBManager>{
 

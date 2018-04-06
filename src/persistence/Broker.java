@@ -22,7 +22,7 @@ abstract class Broker<T> {
      * @return object, which is the result of a row out of the query result.
      * @throws SQLException in case of a database access error.
      */
-    protected abstract T makeObject(ResultSet rs) throws SQLException;
+    protected abstract T makeObject(ResultSet rs);
 
     /**
      * Returns the result of an SQL query as a list.

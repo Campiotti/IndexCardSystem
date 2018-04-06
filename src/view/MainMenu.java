@@ -58,13 +58,4 @@ public class MainMenu extends BaseView implements IView{
         ScreenController.getInstance().activate("creator");
     }
 
-    private void resize(boolean isWidth, Number newVal){
-        if(isWidth){
-
-
-        }else{
-
-
-        }
-    }
 }

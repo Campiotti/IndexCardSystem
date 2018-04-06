@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 //TODO add 2 buttons (1 each) for Question and IndexCard that can cancel editing (or force allow save button on edit btn clicked) - Also save or update depending on if the lbl is set with txt n stuff.
+@SuppressWarnings("unchecked")
 public class Creator extends BaseView implements IView{
     @FXML
     public TextField creatorCDNameTxt,creatorCDPassPTxt,creatorCDCardsPRTxt, QAaddAtxt, QAaddQtxt;
@@ -47,9 +48,7 @@ public class Creator extends BaseView implements IView{
         //mainAnchor.widthProperty().addListener((obs, oldVal, newVal) -> System.out.println(mainAnchor.getWidth()+" , "+mainAnchor.getHeight()));
         //mainAnchor.heightProperty().addListener((obs, oldVal, newVal) -> System.out.println(mainAnchor.getWidth()+" , "+mainAnchor.getHeight()));
         //System.out.println(mainAnchor.getWidth()+" , "+mainAnchor.getHeight());
-        QACB.valueProperty().addListener((obs,newVal,oldVal)->{
-            validateQA();
-        });
+        QACB.valueProperty().addListener((obs,newVal,oldVal)-> validateQA());
 
         CDCB.valueProperty().addListener((obs,newVal,oldVal)->{
             CDEditBtn.disableProperty().set(false);
@@ -90,6 +89,7 @@ public class Creator extends BaseView implements IView{
         String title = creatorCDNameTxt.getText();
         int pp = Integer.parseInt(creatorCDPassPTxt.getText());
         int cpr = Integer.parseInt(creatorCDCardsPRTxt.getText());
+        System.out.println(CDLbl.getText());
         if(CDLbl.getText().equals("") || CDLbl.getText()==null){
             new CreatorController(this).createCardDeck(title,pp,cpr);
         }else{

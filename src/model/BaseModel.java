@@ -2,10 +2,7 @@ package model;
 
 
 import helper.ErrorLogger;
-import javafx.beans.Observable;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableObjectValue;
 import persistence.ConnectionManager;
 
 import java.io.IOException;
@@ -63,7 +60,7 @@ public abstract class BaseModel<T> implements IEntity{
             if(ignoreId && pair.getKey().equals("id")){
                 continue;
             }
-            columns.append("`" + pair.getKey() + "`,");
+            columns.append("`").append(pair.getKey()).append("`,");
         }
         return this.replaceLastOccurence(columns.toString());
     }
@@ -85,7 +82,7 @@ public abstract class BaseModel<T> implements IEntity{
             }else if(val == null){
                 values.append("null,");
             }else{
-                values.append("'" + val + "',");
+                values.append("'").append(val).append("',");
             }
         }
         return this.replaceLastOccurence(values.toString());
@@ -97,11 +94,11 @@ public abstract class BaseModel<T> implements IEntity{
             List<String> columns = getListByCommaString(getColumnValues(true));
             List<String> values = getListByCommaString(getFieldValues(true));
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("UPDATE "+this.tableName+" SET ");
+            stringBuilder.append("UPDATE ").append(this.tableName).append(" SET ");
             for (int i = 0; i < columns.size(); i++) {
                 stringBuilder.append(columns.get(i));
                 stringBuilder.append(" = ");
-                stringBuilder.append(values.get(i)+", ");
+                stringBuilder.append(values.get(i)).append(", ");
             }
             String sql = stringBuilder.toString();
             sql=replaceLastOccurence(sql);
@@ -115,7 +112,7 @@ public abstract class BaseModel<T> implements IEntity{
     }
 
 
-    private void saveOrUpdate(T modelToSave) throws SQLException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, ClassNotFoundException, InstantiationException {
+    protected void saveOrUpdate(T modelToSave) throws SQLException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, ClassNotFoundException {
         if (this.id.get() != null) {
             this.update();
         } else {
