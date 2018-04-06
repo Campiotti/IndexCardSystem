@@ -86,10 +86,38 @@ public class Creator extends BaseView implements IView{
     }
 
     public void creatorCDAddBtnA(ActionEvent actionEvent) {
+        String id = CDLbl.getText();
+        String title = creatorCDNameTxt.getText();
         int pp = Integer.parseInt(creatorCDPassPTxt.getText());
         int cpr = Integer.parseInt(creatorCDCardsPRTxt.getText());
-        new CreatorController(this).createCardDeck(creatorCDNameTxt.getText(),pp,cpr);
-        updateCDTable();
+        if(CDLbl.getText().equals("") || CDLbl.getText()==null){
+            new CreatorController(this).createCardDeck(title,pp,cpr);
+        }else{
+            try {
+                CardDeck cardDeck = new CardDeck(title,pp,cpr);
+                cardDeck.id.set(id);
+                cardDeck.update();
+            } catch (SQLException e) {
+                ErrorLogger.getInstance().log(e.getLocalizedMessage());
+            }
+        }
+        clearTxtInput(true);
+        updateTablesAndComboBoxes();
+    }
+
+    private void clearTxtInput(boolean Cd){
+        if(Cd){
+            creatorCDNameTxt.setText("");
+            creatorCDPassPTxt.setText("");
+            creatorCDCardsPRTxt.setText("");
+            CDLbl.setText("");
+        }else{
+            QAaddQtxt.setText("");
+            QAaddAtxt.setText("");
+            QALbl.setText("");
+            QAaddMCB.selectedProperty().set(false);
+            QACB.getSelectionModel().clearSelection();
+        }
     }
 
     public void creatorCDNameTxtKR(KeyEvent keyEvent) {
@@ -137,7 +165,21 @@ public class Creator extends BaseView implements IView{
     }
 
     public void QAaddQBtnA(ActionEvent actionEvent) {
-        new CreatorController(this).addCard(QAaddQtxt.getText(),QAaddAtxt.getText(),QAaddMCB.isSelected());
+        if(QALbl.getText()==null || QALbl.getText().equals("")){
+            new CreatorController(this).addCard(QAaddQtxt.getText(),QAaddAtxt.getText(),QAaddMCB.isSelected());
+        }else{
+            try {
+                IndexCard indexCard = new IndexCard(new EasyAccess().getCardDeckIdByTitle(QACB.getSelectionModel().getSelectedItem().toString()),QAaddQtxt.getText(),QAaddAtxt.getText(),QAaddMCB.isSelected());
+                indexCard.id.set(QALbl.getText());
+                indexCard.update();
+            } catch (SQLException e) {
+                ErrorLogger.getInstance().log(e.getLocalizedMessage());
+            }
+        }
+        clearTxtInput(false);
+        updateTablesAndComboBoxes();
+
+
     }
 
     private void validateQA(){
@@ -190,10 +232,10 @@ public class Creator extends BaseView implements IView{
         QATableView.getSelectionModel().clearSelection();
         List<IndexCard> indexCards = new EasyAccess().getAllIndexCards();
         data.addAll(indexCards);
-        QATCA.setCellValueFactory(
+        QATCQ.setCellValueFactory(
                 new PropertyValueFactory<IndexCard,String>("question")
         );
-        QATCQ.setCellValueFactory(
+        QATCA.setCellValueFactory(
                 new PropertyValueFactory<IndexCard,String>("answer")
         );
         QATCM.setCellValueFactory(
@@ -237,7 +279,7 @@ public class Creator extends BaseView implements IView{
     public void CDDeleteBtnA(ActionEvent actionEvent) {
         try {
             CardDeck cardDeck = new CardDeck();
-            cardDeck.id.set(""+CDCB.getSelectionModel().getSelectedItem().toString());
+            cardDeck.id.set(""+new EasyAccess().getCardDeckIdByTitle(CDCB.getSelectionModel().getSelectedItem().toString()));
             cardDeck.delete();
         } catch (SQLException e) {
             ErrorLogger.getInstance().log(e.getLocalizedMessage());
@@ -253,7 +295,7 @@ public class Creator extends BaseView implements IView{
     public void QADeleteBtnA(ActionEvent actionEvent) {
         try {
             IndexCard indexCard = new IndexCard();
-            indexCard.id.set(""+QACB2.getSelectionModel().getSelectedItem().toString());
+            indexCard.id.set(""+new EasyAccess().getIndexCardIdByQuestion(QACB2.getSelectionModel().getSelectedItem().toString()));
             indexCard.delete();
         } catch (SQLException e) {
             ErrorLogger.getInstance().log(e.getLocalizedMessage());

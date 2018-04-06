@@ -34,7 +34,7 @@ public class DBManager extends Broker<DBManager>{
                 "question varchar(100)," +
                 "answer varchar(100)," +
                 "isNumberQuestion bool," +
-                "FOREIGN KEY(cardDeckFk) references CardDeck(id))";
+                "FOREIGN KEY(cardDeckFk) references CardDeck(id) ON DELETE CASCADE)";
         /*String tmp3="create table if not exists Answer(id integer IDENTITY PRIMARY KEY auto_increment," +
                 "questionFk integer," +
                 "answer varchar(100)," +

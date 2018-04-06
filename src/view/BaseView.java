@@ -1,6 +1,6 @@
 package view;
 
-import helper.ErrorLogger;
+import javafx.scene.control.Control;
 
 import java.awt.*;
 
@@ -15,11 +15,9 @@ public abstract class BaseView implements IView{
     }
 
     @Override
-    public void setEnabled(String object, boolean enable) {
-        try {
-            Object myobj = this.getClass().getField(object);
-        } catch (NoSuchFieldException e) {
-            ErrorLogger.getInstance().log(e.getLocalizedMessage());
-        }
+    public void setEnabled(Control control, boolean enable) {
+
+            control.disableProperty().set(!enable);
+
     }
 }
