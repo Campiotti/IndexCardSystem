@@ -19,7 +19,7 @@ import java.util.*;
 
 public abstract class BaseModel<T> implements IEntity{
     private Field[] fields;
-    protected SimpleStringProperty id = new SimpleStringProperty();
+    public SimpleStringProperty id = new SimpleStringProperty();
     protected String tableName;
     protected Connection connection;
     protected Map<String, Object> managedProperties = new HashMap<String, Object>();

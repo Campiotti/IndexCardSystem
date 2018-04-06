@@ -1,6 +1,7 @@
 package view;
 
 import controller.CreatorController;
+import helper.ErrorLogger;
 import ics.ScreenController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,11 +16,11 @@ import model.EasyAccess;
 import model.IndexCard;
 import persistence.Validifier;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+//TODO add 2 buttons (1 each) for Question and IndexCard that can cancel editing (or force allow save button on edit btn clicked) - Also save or update depending on if the lbl is set with txt n stuff.
 public class Creator extends BaseView implements IView{
-
     @FXML
     public TextField creatorCDNameTxt,creatorCDPassPTxt,creatorCDCardsPRTxt, QAaddAtxt, QAaddQtxt;
     @FXML
@@ -40,8 +41,6 @@ public class Creator extends BaseView implements IView{
     public Label CDLbl,QALbl;
 
     private static Validifier validifier = new Validifier();
-
-    private static String curCardDeck,curIndexCard;
 
     @FXML
     public void initialize(){
@@ -114,6 +113,16 @@ public class Creator extends BaseView implements IView{
        // System.out.println(validifier.checkNumber(creatorCDCardsPRTxt.getText()));
         if(validifier.checkName(creatorCDNameTxt.getText(),1,24) && validifier.checkNumber(creatorCDCardsPRTxt.getText()) && validifier.checkNumber(creatorCDPassPTxt.getText()))
             creatorCDAddBtn.disableProperty().set(false);
+        else
+            creatorCDAddBtn.disableProperty().set(true);
+    }
+    private void validifyQuestion(){
+        if(validifier==null)
+            validifier = new Validifier();
+        if((QAaddMCB.isSelected() && validifier.checkNumber(QAaddAtxt.getText())) && QAaddQtxt.getText().length()>0)
+            QAaddQBtn.disableProperty().set(false);
+        else
+            QAaddQBtn.disableProperty().set(true);
     }
 
     public void QAaddQTxtKT(KeyEvent keyEvent) {
@@ -142,13 +151,13 @@ public class Creator extends BaseView implements IView{
     private boolean quickMaths(){
         if(QAaddMCB.isSelected()){
             try{
-                Integer.parseInt(QAaddAtxt.getText());
-                return false;
-            }catch (Exception ignored){
+                 int a = Integer.parseInt(QAaddAtxt.getText());
                 return true;
+            }catch (Exception ignored){
+                return false;
             }
         }else{
-            return false;
+            return true;
         }
     }
 
@@ -221,17 +230,72 @@ public class Creator extends BaseView implements IView{
     }
 
     public void CDEditBtnA(ActionEvent actionEvent) {
-
-        updateCDTable();
+        readIntoCDtxts();
+        updateTablesAndComboBoxes();
     }
 
     public void CDDeleteBtnA(ActionEvent actionEvent) {
-        updateCDTable();
+        try {
+            CardDeck cardDeck = new CardDeck();
+            cardDeck.id.set(""+CDCB.getSelectionModel().getSelectedItem().toString());
+            cardDeck.delete();
+        } catch (SQLException e) {
+            ErrorLogger.getInstance().log(e.getLocalizedMessage());
+        }
+        updateTablesAndComboBoxes();
     }
 
     public void QAEditBtnA(ActionEvent actionEvent) {
+        readIntoQAtxts();
+        updateTablesAndComboBoxes();
     }
 
     public void QADeleteBtnA(ActionEvent actionEvent) {
+        try {
+            IndexCard indexCard = new IndexCard();
+            indexCard.id.set(""+QACB2.getSelectionModel().getSelectedItem().toString());
+            indexCard.delete();
+        } catch (SQLException e) {
+            ErrorLogger.getInstance().log(e.getLocalizedMessage());
+        }
+        updateTablesAndComboBoxes();
+    }
+
+    private void readIntoCDtxts(){
+        try {
+            CardDeck cardDeck = new CardDeck();
+            cardDeck.id.set(""+new EasyAccess().getCardDeckIdByTitle(CDCB.getSelectionModel().getSelectedItem().toString()));
+            //System.out.println(cardDeck.id.get());
+            cardDeck.view();
+            CDLbl.setText(""+cardDeck.id.get());
+            creatorCDNameTxt.setText(""+cardDeck.getTitle());
+            creatorCDCardsPRTxt.setText(""+cardDeck.getCardsPerRun());
+            creatorCDPassPTxt.setText(""+cardDeck.getPassPercent());
+        } catch (SQLException e) {
+            ErrorLogger.getInstance().log(e.getLocalizedMessage());
+        }
+    }
+
+    private void readIntoQAtxts(){
+        try {
+            IndexCard indexCard = new IndexCard();
+            indexCard.id.set(""+new EasyAccess().getIndexCardIdByQuestion(QACB2.getSelectionModel().getSelectedItem().toString()));
+            //System.out.println(indexCard.id.get());
+            indexCard.view();
+            QALbl.setText(indexCard.id.get());
+            QAaddQtxt.setText(indexCard.getQuestion());
+            QAaddAtxt.setText(indexCard.getAnswer());
+            List<CardDeck> cardDecks = new EasyAccess().getAllCardDecks();
+            for (int i = 0; i < cardDecks.size(); i++) {
+                System.out.println(cardDecks.get(i).getTitle()+" -- "+indexCard.getCardDeckName());
+                if(cardDecks.get(i).getTitle().equals(indexCard.getCardDeckName())){
+                    QACB.getSelectionModel().select(i);
+                    break;
+                }
+            }
+            QAaddMCB.selectedProperty().set(indexCard.getIsNumberQuestion());
+        } catch (SQLException e) {
+            ErrorLogger.getInstance().log(e.getLocalizedMessage());
+        }
     }
 }

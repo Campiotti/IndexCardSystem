@@ -8,6 +8,7 @@ import persistence.ConnectionManager;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -46,19 +47,26 @@ public class CardDeck extends BaseModel<CardDeck> implements IEntity {
         }
     }
 
-    @Override
-    public void delete() {
-
-    }
 
     @Override
-    public void view(int id) {
+    public void view() {
+        try {
+            String sql = "SELECT * FROM CARDDECK WHERE ID = "+this.id.get();
+            Statement stmt = ConnectionManager.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            rs.next();
+            this.title.set(rs.getString(2));
+            this.passPercent.set(rs.getInt(3));
+            this.cardsPerRun.set(rs.getInt(4));
+        } catch (SQLException | IOException e) {
+            ErrorLogger.getInstance().log(e.getLocalizedMessage());
+        }
 
     }
 
     @Override
     public void edit() {
-
+        super.update();
     }
 
     public int getQuestionsCount(){

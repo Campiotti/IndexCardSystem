@@ -1,7 +1,6 @@
 package model;
 
 import helper.ErrorLogger;
-import org.h2.index.Index;
 import persistence.ConnectionManager;
 
 import java.io.IOException;
@@ -46,7 +45,7 @@ public class EasyAccess {
                 indexCard.setCardDeckFk((rs.getInt(2)));
                 indexCard.setQuestion(rs.getString(3));
                 indexCard.setAnswer(rs.getString(4));
-                indexCard.setNumberQuestion(rs.getBoolean(5));
+                indexCard.setIsNumberQuestion(rs.getBoolean(5));
                 list.add(indexCard);
             }
         } catch (SQLException | IOException e) {
@@ -60,7 +59,8 @@ public class EasyAccess {
             String sql="SELECT ID FROM CARDDECK WHERE TITLE='"+title+"'";
             Statement stmt = ConnectionManager.getConnection().createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            rs.next(); rs.getInt(1);
+            rs.next();
+            return rs.getInt(1);
         } catch (SQLException | IOException e) {
             ErrorLogger.getInstance().log(e.getLocalizedMessage());
         }
@@ -72,7 +72,8 @@ public class EasyAccess {
             String sql="SELECT ID FROM INDEXCARD WHERE QUESTION='"+question+"'";
             Statement stmt = ConnectionManager.getConnection().createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            rs.next(); rs.getInt(1);
+            rs.next();
+            return rs.getInt(1);
         } catch (SQLException | IOException e) {
             ErrorLogger.getInstance().log(e.getLocalizedMessage());
         }

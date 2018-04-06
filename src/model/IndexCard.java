@@ -8,6 +8,7 @@ import persistence.ConnectionManager;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -15,24 +16,24 @@ public class IndexCard extends BaseModel<IndexCard> implements IEntity {
     private SimpleIntegerProperty cardDeckFk = new SimpleIntegerProperty();
     private SimpleStringProperty question = new SimpleStringProperty();
     private SimpleStringProperty answer = new SimpleStringProperty();
-    private SimpleBooleanProperty numberQuestion = new SimpleBooleanProperty();
+    private SimpleBooleanProperty isNumberQuestion = new SimpleBooleanProperty();
     private SimpleStringProperty cardDeckName = new SimpleStringProperty();
 
     public IndexCard() throws SQLException {
         this.addProperty("cardDeckFk",this.cardDeckFk);
         this.addProperty("question",this.question);
         this.addProperty("answer",this.answer);
-        this.addProperty("isNumberQuestion",this.numberQuestion);
+        this.addProperty("isNumberQuestion",this.isNumberQuestion);
     }
-    public IndexCard(int cardDeckFk, String question, String answer, boolean numberQuestion) throws SQLException{
+    public IndexCard(int cardDeckFk, String question, String answer, boolean isNumberQuestion) throws SQLException{
         this.addProperty("cardDeckFk",this.cardDeckFk);
         this.addProperty("question",this.question);
         this.addProperty("answer",this.answer);
-        this.addProperty("isNumberQuestion",this.numberQuestion);
+        this.addProperty("isNumberQuestion",this.isNumberQuestion);
         this.cardDeckFk.set(cardDeckFk);
         this.question.set(question);
         this.answer.set(answer);
-        this.numberQuestion.set(numberQuestion);
+        this.isNumberQuestion.set(isNumberQuestion);
 
     }
 
@@ -47,13 +48,26 @@ public class IndexCard extends BaseModel<IndexCard> implements IEntity {
     }
 
     @Override
-    public void view(int id) {
-
+    public void view() {
+        try {
+            String sql = "SELECT * FROM INDEXCARD WHERE ID = "+this.id.get();
+            Statement stmt = this.connection.createStatement();
+            stmt.executeQuery(sql);
+            ResultSet rs = stmt.getResultSet();
+            rs.next();
+            this.cardDeckFk.set(rs.getInt(2));
+            this.question.set(rs.getString(3));
+            this.answer.set(rs.getString(4));
+            this.isNumberQuestion.set(rs.getBoolean(5));
+            cardDeckNameProperty();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void edit() {
-
+        super.update();
     }
 
     public int getCardDeckFk() {
@@ -92,16 +106,16 @@ public class IndexCard extends BaseModel<IndexCard> implements IEntity {
         this.answer.set(answer);
     }
 
-    public boolean isNumberQuestion() {
-        return numberQuestion.get();
+    public boolean getIsNumberQuestion() {
+        return isNumberQuestion.get();
     }
 
-    public SimpleBooleanProperty numberQuestionProperty() {
-        return numberQuestion;
+    public SimpleBooleanProperty isNumberQuestionProperty() {
+        return isNumberQuestion;
     }
 
-    public void setNumberQuestion(boolean numberQuestion) {
-        this.numberQuestion.set(numberQuestion);
+    public void setIsNumberQuestion(boolean isNumberQuestion) {
+        this.isNumberQuestion.set(isNumberQuestion);
     }
     public boolean checkAnswer(String answer){
         boolean correct=false;
@@ -111,10 +125,11 @@ public class IndexCard extends BaseModel<IndexCard> implements IEntity {
     }
 
     public String getCardDeckName() {
+        this.cardDeckName=cardDeckNameProperty();
         return cardDeckName.get();
     }
 
-    public SimpleStringProperty cardDeckNameProperty() {
+    private SimpleStringProperty cardDeckNameProperty() {
         try {
             String sql = "SELECT title from CARDDECK WHERE ID = "+getCardDeckFk();
             Statement stmt = ConnectionManager.getConnection().createStatement();
