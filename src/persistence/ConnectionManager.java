@@ -24,7 +24,7 @@ public class ConnectionManager {
     public static Connection getConnection() throws IOException, SQLException {
         if (con == null) {
             Properties prop = loadDbParam();
-            con = DriverManager.getConnection(prop.getProperty("url"),
+            con = DriverManager.getConnection(prop.getProperty("url","jdbc:h2:~/cics"),
                     prop.getProperty("user", ""),
                     prop.getProperty("password", ""));
         }
