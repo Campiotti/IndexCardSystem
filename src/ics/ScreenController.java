@@ -6,8 +6,10 @@ import javafx.scene.layout.Pane;
 import java.util.HashMap;
 
 /**
+ * Controls the Screen and which fxml is currently displayed.
  * Found on StackOverflow - https://stackoverflow.com/a/37276108
  * @author MrOerni
+ * @author (of modifications) Campiotti
  */
 public class ScreenController {
     private HashMap<String, Pane> screenMap = new HashMap<>();
