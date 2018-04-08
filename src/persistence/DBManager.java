@@ -72,7 +72,7 @@ public class DBManager{
      * @throws IOException /db.properties could not be read.
      * @throws SQLException error while accessing the database.
      */
-    void update(String sql) throws IOException, SQLException {
+    private void update(String sql) throws IOException, SQLException {
         try (Statement stmt = ConnectionManager.getConnection()
                 .createStatement()) {
 

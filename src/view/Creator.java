@@ -2,7 +2,7 @@ package view;
 
 import controller.CreatorController;
 import helper.ErrorLogger;
-import ics.ScreenController;
+import helper.Factory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +13,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import model.CardDeck;
 import model.EasyAccess;
+import model.IEntity;
 import model.IndexCard;
 import persistence.Validifier;
 
@@ -88,19 +89,12 @@ public class Creator extends BaseView implements IView{
         String title = creatorCDNameTxt.getText();
         int pp = Integer.parseInt(creatorCDPassPTxt.getText());
         int cpr = Integer.parseInt(creatorCDCardsPRTxt.getText());
-        System.out.println(CDLbl.getText());
-        if(CDLbl.getText().equals("") || CDLbl.getText()==null){
+        //System.out.println(CDLbl.getText());
+        if(CDLbl.getText().equals("") || CDLbl.getText()==null)
             new CreatorController().createCardDeck(title,pp,cpr);
-        }else{
+        else
+            new CreatorController().updateCardDeck(id,title,pp,cpr);
 
-                new CreatorController().updateCardDeck(id,title,pp,cpr);
-                /*CardDeck cardDeck = new CardDeck(title,pp,cpr);
-                cardDeck.id.set(id);
-                cardDeck.update();
-            } catch (SQLException e) {
-                ErrorLogger.getInstance().log(e.getLocalizedMessage());
-            }*/
-        }
         clearTxtInput(true);
         updateTablesAndComboBoxes();
     }
@@ -139,7 +133,8 @@ public class Creator extends BaseView implements IView{
        // System.out.println(validifier.checkName(creatorCDNameTxt.getText(),1,24));
        // System.out.println(validifier.checkNumber(creatorCDPassPTxt.getText()));
        // System.out.println(validifier.checkNumber(creatorCDCardsPRTxt.getText()));
-        if(validifier.checkName(creatorCDNameTxt.getText(),1,24) && validifier.checkNumber(creatorCDCardsPRTxt.getText()) && validifier.checkNumber(creatorCDPassPTxt.getText()))
+        if(creatorCDNameTxt.getText().length()>0 && creatorCDNameTxt.getText().length()<25 && validifier.checkNumber(creatorCDCardsPRTxt.getText()) && validifier.checkNumber(creatorCDPassPTxt.getText())
+                && Integer.parseInt(creatorCDPassPTxt.getText())>-1 && Integer.parseInt(creatorCDPassPTxt.getText())<101)
             creatorCDAddBtn.disableProperty().set(false);
         else
             creatorCDAddBtn.disableProperty().set(true);
@@ -154,6 +149,7 @@ public class Creator extends BaseView implements IView{
     }
 
     public void QAaddQTxtKT(KeyEvent keyEvent) {
+        validateQA();
     }
 
     public void QAaddAtxtKT(KeyEvent keyEvent) {
@@ -168,13 +164,10 @@ public class Creator extends BaseView implements IView{
         if(QALbl.getText()==null || QALbl.getText().equals("")){
             new CreatorController().addCard(new EasyAccess().getCardDeckIdByTitle(QACB.getSelectionModel().getSelectedItem().toString()).toString(),QAaddQtxt.getText(),QAaddAtxt.getText(),QAaddMCB.isSelected());
         }else{
-            try {
-                IndexCard indexCard = new IndexCard(new EasyAccess().getCardDeckIdByTitle(QACB.getSelectionModel().getSelectedItem().toString()),QAaddQtxt.getText(),QAaddAtxt.getText(),QAaddMCB.isSelected());
-                indexCard.id.set(QALbl.getText());
-                indexCard.update();
-            } catch (SQLException e) {
-                ErrorLogger.getInstance().log(e.getLocalizedMessage());
-            }
+            IEntity model = new Factory().getModel(true);
+            Object[] obj = new Object[]{QALbl.getText(),new EasyAccess().getCardDeckIdByTitle(QACB.getSelectionModel().getSelectedItem().toString()),QAaddQtxt.getText(),QAaddAtxt.getText(),QAaddMCB.isSelected()};
+            model.patchData(obj,true);
+            model.edit();
         }
         clearTxtInput(false);
         updateTablesAndComboBoxes();
@@ -184,7 +177,8 @@ public class Creator extends BaseView implements IView{
 
     private void validateQA(){
         boolean disable=true;
-        if(quickMaths() && QACB.valueProperty().get()!=null)
+
+        if(quickMaths() && validateQAtexts() && validateQAcheckBox())
             disable=false;
         QAaddQBtn.disableProperty().set(disable);
 
@@ -201,6 +195,13 @@ public class Creator extends BaseView implements IView{
         }else{
             return true;
         }
+    }
+    private boolean validateQAtexts(){
+        return QAaddQtxt.getText().length() > 0 && QAaddQtxt.getText().length() < 25 && QAaddAtxt.getText().length() > 0 && QAaddAtxt.getText().length() < 25;
+    }
+    private boolean validateQAcheckBox(){
+        try{return QACB.getSelectionModel().getSelectedItem().toString() != null && QACB.getSelectionModel().getSelectedIndex()>-1;}
+        catch (Exception ignored){return false;}
     }
 
     private void updateCDTable(){
@@ -277,13 +278,9 @@ public class Creator extends BaseView implements IView{
     }
 
     public void CDDeleteBtnA(ActionEvent actionEvent) {
-        try {
-            CardDeck cardDeck = new CardDeck();
-            cardDeck.id.set(""+new EasyAccess().getCardDeckIdByTitle(CDCB.getSelectionModel().getSelectedItem().toString()));
-            cardDeck.delete();
-        } catch (SQLException e) {
-            ErrorLogger.getInstance().log(e.getLocalizedMessage());
-        }
+        IEntity model = new Factory().getModel(false);
+        model.patchData(new Object[]{new EasyAccess().getCardDeckIdByTitle(CDCB.getSelectionModel().getSelectedItem().toString())},true);
+        model.delete();
         updateTablesAndComboBoxes();
     }
 
@@ -329,7 +326,7 @@ public class Creator extends BaseView implements IView{
             QAaddAtxt.setText(indexCard.getAnswer());
             List<CardDeck> cardDecks = new EasyAccess().getAllCardDecks();
             for (int i = 0; i < cardDecks.size(); i++) {
-                System.out.println(cardDecks.get(i).getTitle()+" -- "+indexCard.getCardDeckName());
+                //System.out.println(cardDecks.get(i).getTitle()+" -- "+indexCard.getCardDeckName());
                 if(cardDecks.get(i).getTitle().equals(indexCard.getCardDeckName())){
                     QACB.getSelectionModel().select(i);
                     break;

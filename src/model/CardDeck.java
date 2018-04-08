@@ -75,9 +75,13 @@ public class CardDeck extends BaseModel<CardDeck> implements IEntity {
             this.id.set(data[i].toString());
             i++;
         }
-        this.title.set(data[i].toString());i++;
+        try{this.title.set(data[i].toString());i++;
         this.passPercent.set(Integer.parseInt(data[i].toString()));i++;
-        this.cardsPerRun.set(Integer.parseInt(data[i].toString()));
+        this.cardsPerRun.set(Integer.parseInt(data[i].toString()));}
+        catch (Exception e){
+            ErrorLogger.getInstance().log(e.getLocalizedMessage());
+        }
+
     }
 
     public int getQuestionsCount(){

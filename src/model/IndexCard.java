@@ -77,10 +77,13 @@ public class IndexCard extends BaseModel<IndexCard> implements IEntity {
             id.set(data[i].toString());
             i++;
         }
-        this.cardDeckFk.set(Integer.parseInt(data[i].toString()));i++;
+        try{this.cardDeckFk.set(Integer.parseInt(data[i].toString()));i++;
         this.question.set(data[i].toString());i++;
         this.answer.set(data[i].toString());i++;
-        this.isNumberQuestion.set((boolean)data[i]);
+        this.isNumberQuestion.set((boolean)data[i]);}
+        catch (Exception e){
+            ErrorLogger.getInstance().log(e.getLocalizedMessage());
+        }
     }
 
     public int getCardDeckFk() {
