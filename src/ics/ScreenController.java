@@ -23,11 +23,11 @@ public class ScreenController {
         return instance;
     }
 
-    public void setMain(Scene main){
+    void setMain(Scene main){
         this.main=main;
     }
 
-    protected void addScreen(String name, Pane pane){
+    void addScreen(String name, Pane pane){
         screenMap.put(name, pane);
     }
 
