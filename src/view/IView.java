@@ -11,4 +11,5 @@ public interface IView {
 
     void setEnabled (Control control, boolean enable);
 
+    void backToMainMenu();
 }

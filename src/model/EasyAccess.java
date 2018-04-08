@@ -54,7 +54,7 @@ public class EasyAccess {
         return list;
     }
 
-    public int getCardDeckIdByTitle(String title){
+    public Integer getCardDeckIdByTitle(String title){
         try {
             String sql="SELECT ID FROM CARDDECK WHERE TITLE='"+title+"'";
             Statement stmt = ConnectionManager.getConnection().createStatement();

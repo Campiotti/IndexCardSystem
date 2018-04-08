@@ -1,5 +1,6 @@
 package view;
 
+import ics.ScreenController;
 import javafx.scene.control.Control;
 
 import java.awt.*;
@@ -19,5 +20,9 @@ public abstract class BaseView implements IView{
 
             control.disableProperty().set(!enable);
 
+    }
+    @Override
+    public void backToMainMenu(){
+        ScreenController.getInstance().activate("mainMenu");
     }
 }

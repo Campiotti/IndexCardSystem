@@ -19,7 +19,6 @@ import persistence.Validifier;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-//TODO add 2 buttons (1 each) for Question and IndexCard that can cancel editing (or force allow save button on edit btn clicked) - Also save or update depending on if the lbl is set with txt n stuff.
 @SuppressWarnings("unchecked")
 public class Creator extends BaseView implements IView{
     @FXML
@@ -81,7 +80,7 @@ public class Creator extends BaseView implements IView{
     }
 
     public void creatorSysBtnA(ActionEvent actionEvent) {
-        ScreenController.getInstance().activate("mainMenu");
+        this.backToMainMenu();
     }
 
     public void creatorCDAddBtnA(ActionEvent actionEvent) {
@@ -91,15 +90,16 @@ public class Creator extends BaseView implements IView{
         int cpr = Integer.parseInt(creatorCDCardsPRTxt.getText());
         System.out.println(CDLbl.getText());
         if(CDLbl.getText().equals("") || CDLbl.getText()==null){
-            new CreatorController(this).createCardDeck(title,pp,cpr);
+            new CreatorController().createCardDeck(title,pp,cpr);
         }else{
-            try {
-                CardDeck cardDeck = new CardDeck(title,pp,cpr);
+
+                new CreatorController().updateCardDeck(id,title,pp,cpr);
+                /*CardDeck cardDeck = new CardDeck(title,pp,cpr);
                 cardDeck.id.set(id);
                 cardDeck.update();
             } catch (SQLException e) {
                 ErrorLogger.getInstance().log(e.getLocalizedMessage());
-            }
+            }*/
         }
         clearTxtInput(true);
         updateTablesAndComboBoxes();
@@ -166,7 +166,7 @@ public class Creator extends BaseView implements IView{
 
     public void QAaddQBtnA(ActionEvent actionEvent) {
         if(QALbl.getText()==null || QALbl.getText().equals("")){
-            new CreatorController(this).addCard(QAaddQtxt.getText(),QAaddAtxt.getText(),QAaddMCB.isSelected());
+            new CreatorController().addCard(new EasyAccess().getCardDeckIdByTitle(QACB.getSelectionModel().getSelectedItem().toString()).toString(),QAaddQtxt.getText(),QAaddAtxt.getText(),QAaddMCB.isSelected());
         }else{
             try {
                 IndexCard indexCard = new IndexCard(new EasyAccess().getCardDeckIdByTitle(QACB.getSelectionModel().getSelectedItem().toString()),QAaddQtxt.getText(),QAaddAtxt.getText(),QAaddMCB.isSelected());

@@ -144,6 +144,44 @@ public abstract class BaseModel<T> implements IEntity{
 
         return new ArrayList<>(Arrays.asList(commaList.split(",")));
     }
+    @Override
+    public void patchData(Object data[], boolean ignoreId){
+        try{StringBuilder values = new StringBuilder();
+        Iterator it = this.managedProperties.entrySet().iterator();
+        int i = 0;
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            Class<?> cls = Class.forName(pair.getValue().getClass().getName());
+            Method meth = cls.getMethod("set");
+            Object val = meth.invoke(pair.getValue(), data[i]);
+            if(pair.getKey().equals("id") && ignoreId){
+                continue;
+            }
+            if(pair.getKey().equals("id") && !ignoreId){
+                values.append(",");
+            }else if(val == null){
+                values.append("null,");
+            }else{
+                values.append("'").append(val).append("',");
+            }
+        }} catch (NoSuchMethodException | IllegalAccessException | ClassNotFoundException | InvocationTargetException e) {
+            ErrorLogger.getInstance().log(e.getLocalizedMessage());
+        }
+    }
+    /*protected BaseModel<T> populateObject(ResultSet res, Class<T> clazz) throws SQLException, IllegalAccessException, InstantiationException {
+        // BaseModel<Stundent> myObject = new BaseModel<Stundent>() ;
+        BaseModel<T> myObject = (BaseModel<T>) clazz.newInstance();
+        Iterator it = myObject.getManagedProperties().entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            if (pair.getValue() instanceof SimpleStringProperty) {
+                ((SimpleStringProperty) pair.getValue()).set(res.getString((String) pair.getKey()));
+            } else if (pair.getValue() instanceof SimpleIntegerProperty) {
+                ((SimpleIntegerProperty) pair.getValue()).set(res.getInt((String) pair.getKey()));
+            }
+        }
+        return myObject;
+    }*/
 
 }
 

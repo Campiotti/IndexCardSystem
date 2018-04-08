@@ -25,4 +25,11 @@ public interface IEntity {
      */
     void edit();
 
+    /**
+     * Fills all Properties with the data Object array's values
+     * @param data data which is used to fill the model's variables
+     * @param  hasId true or false depending if the id is supposed to be set
+     */
+    void patchData(Object[] data, boolean hasId);
+
 }
