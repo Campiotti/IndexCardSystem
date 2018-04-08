@@ -2,9 +2,12 @@ package persistence;
 
 import helper.ErrorLogger;
 
+import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-public class DBManager extends Broker<DBManager>{
+public class DBManager{
 
     private static DBManager instance;
     private DBManager(){}
@@ -43,8 +46,8 @@ public class DBManager extends Broker<DBManager>{
                 "passPercent integer," +
                 "cardsPerRun integer)";
         try{
-            update(tmp1);
-            update(tmp2);
+            this.update(tmp1);
+            this.update(tmp2);
             //update(tmp3);
         }catch (Exception e){
             ErrorLogger.getInstance().log(e.getLocalizedMessage());
@@ -63,8 +66,18 @@ public class DBManager extends Broker<DBManager>{
         }
     }
 
-    @Override
-    protected DBManager makeObject(ResultSet rs) {
-        return null;
+    /**
+     * Method to insert,update and delete.
+     * @param sql INSERT, UPDATE, DELETE statement.
+     * @throws IOException /db.properties could not be read.
+     * @throws SQLException error while accessing the database.
+     */
+    void update(String sql) throws IOException, SQLException {
+        try (Statement stmt = ConnectionManager.getConnection()
+                .createStatement()) {
+
+            stmt.executeUpdate(sql);
+        }
     }
+
 }

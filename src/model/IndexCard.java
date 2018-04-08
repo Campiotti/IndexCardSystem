@@ -70,6 +70,19 @@ public class IndexCard extends BaseModel<IndexCard> implements IEntity {
         super.update();
     }
 
+    @Override
+    public void patchData(Object[] data, boolean hasId) {
+        int i=0;
+        if(hasId){
+            id.set(data[i].toString());
+            i++;
+        }
+        this.cardDeckFk.set(Integer.parseInt(data[i].toString()));i++;
+        this.question.set(data[i].toString());i++;
+        this.answer.set(data[i].toString());i++;
+        this.isNumberQuestion.set((boolean)data[i]);
+    }
+
     public int getCardDeckFk() {
         return cardDeckFk.get();
     }

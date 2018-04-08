@@ -68,6 +68,18 @@ public class CardDeck extends BaseModel<CardDeck> implements IEntity {
         super.update();
     }
 
+    @Override
+    public void patchData(Object[] data, boolean hasId) {
+        int i=0;
+        if(hasId){
+            this.id.set(data[i].toString());
+            i++;
+        }
+        this.title.set(data[i].toString());i++;
+        this.passPercent.set(Integer.parseInt(data[i].toString()));i++;
+        this.cardsPerRun.set(Integer.parseInt(data[i].toString()));
+    }
+
     public int getQuestionsCount(){
         if(this.id!=null){
             String sql = "SELECT COUNT(ID) FROM INDEXCARD WHERE CARDDECKFK = "+id.get();

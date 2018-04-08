@@ -33,7 +33,7 @@ public class Main extends Application {
         primaryStage.setHeight(1024);
         primaryStage.getIcons().add(new Image("/res/Schmitz'sFavourite.png"));
         primaryStage.show();
-        DBManager.getInstance().seed();//runs db seed to make sure database is present if it's not yet existent.
+        DBManager.getInstance().seed();//runs db seed to make sure database is present if it's not yet existent. if clearDatabase() is called here program needs to restart after opening.
         primaryStage.setOnCloseRequest(e -> onClose());
         ErrorLogger.getInstance().log("--- CICS started ---","info.txt");
         ErrorLogger.getInstance().log("w: "+primaryStage.getWidth(),"info.txt");

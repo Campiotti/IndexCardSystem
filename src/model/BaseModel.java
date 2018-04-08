@@ -144,30 +144,24 @@ public abstract class BaseModel<T> implements IEntity{
 
         return new ArrayList<>(Arrays.asList(commaList.split(",")));
     }
-    @Override
+    /*@Override
     public void patchData(Object data[], boolean ignoreId){
         try{StringBuilder values = new StringBuilder();
         Iterator it = this.managedProperties.entrySet().iterator();
         int i = 0;
-        while (it.hasNext()) {
+        while (it.hasNext() && i < data.length) {
             Map.Entry pair = (Map.Entry) it.next();
-            Class<?> cls = Class.forName(pair.getValue().getClass().getName());
-            Method meth = cls.getMethod("set");
-            Object val = meth.invoke(pair.getValue(), data[i]);
             if(pair.getKey().equals("id") && ignoreId){
                 continue;
             }
-            if(pair.getKey().equals("id") && !ignoreId){
-                values.append(",");
-            }else if(val == null){
-                values.append("null,");
-            }else{
-                values.append("'").append(val).append("',");
-            }
+            Class<?> cls = Class.forName(pair.getValue().getClass().getName());
+            Method meth = cls.getMethod("set");
+            Object val = meth.invoke(pair.getValue(), data[i]);
+            i++;
         }} catch (NoSuchMethodException | IllegalAccessException | ClassNotFoundException | InvocationTargetException e) {
             ErrorLogger.getInstance().log(e.getLocalizedMessage());
         }
-    }
+    }*/
     /*protected BaseModel<T> populateObject(ResultSet res, Class<T> clazz) throws SQLException, IllegalAccessException, InstantiationException {
         // BaseModel<Stundent> myObject = new BaseModel<Stundent>() ;
         BaseModel<T> myObject = (BaseModel<T>) clazz.newInstance();
