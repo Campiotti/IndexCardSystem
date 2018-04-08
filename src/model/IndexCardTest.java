@@ -13,11 +13,12 @@ import static org.junit.Assert.*;
 /**
  * WARNING: RUNNING ANY OF THESE TESTS WILL CLEAR CONTENTS OF WHOLE DATABASE!
  */
-public class CardDeckTest {
+public class IndexCardTest {
     private final String deck = "testA";
     private final String card = "testB";
+    private final String cardAnswer="answer";
     @Before
-    public void setUp(){
+    public void setUp() throws Exception {
         try {
             DBManager.getInstance().clearDatabase();
             CardDeck cardDeck = new CardDeck();
@@ -26,11 +27,13 @@ public class CardDeckTest {
             IndexCard indexCard = new IndexCard();
             indexCard.setCardDeckFk(1);
             indexCard.setQuestion(card);
+            indexCard.setAnswer(cardAnswer);
             indexCard.save();
         } catch (SQLException e) {
             ErrorLogger.getInstance().log(e.getLocalizedMessage());
         }
     }
+
     @After
     public void tearDown() throws Exception {
         CardDeck cardDeck = new CardDeck();
@@ -40,52 +43,26 @@ public class CardDeckTest {
         indexCard.id.set(""+1);
         indexCard.delete();
     }
+
     @Test
-    public void view() {
+    public void checkAnswer() {
         try {
-            CardDeck cardDeck = new CardDeck();
-            cardDeck.id.set(""+1);
-            cardDeck.view();
-            assertEquals(deck,cardDeck.getTitle());
+            IndexCard indexCard = new IndexCard();
+            indexCard.id.set("1");
+            indexCard.view();
+            assertTrue(indexCard.checkAnswer(cardAnswer));
         } catch (SQLException e) {
             ErrorLogger.getInstance().log(e.getLocalizedMessage());
         }
     }
 
     @Test
-    public void edit() {
+    public void getCardDeckName() {
         try {
-            CardDeck cardDeck = new CardDeck();
-            cardDeck.id.set(""+1);
-            cardDeck.setTitle(card);
-            cardDeck.edit();
-            CardDeck c2 = new CardDeck();
-            c2.id.set(""+1);
-            c2.view();
-            assertEquals(card,c2.getTitle());
-        } catch (SQLException e) {
-            ErrorLogger.getInstance().log(e.getLocalizedMessage());
-        }
-    }
-
-    @Test
-    public void patchData() {
-        try {
-            CardDeck cardDeck = new CardDeck();
-            cardDeck.patchData(new Object[]{255},true);
-            assertEquals(""+255,cardDeck.id.get());
-        } catch (SQLException e) {
-            ErrorLogger.getInstance().log(e.getLocalizedMessage());
-        }
-    }
-
-    @Test
-    public void getQuestionsCount() {
-        try {
-            CardDeck cardDeck = new CardDeck();
-            cardDeck.id.set(""+1);
-            cardDeck.view();
-            assertEquals(1,cardDeck.getQuestionsCount());
+            IndexCard indexCard = new IndexCard();
+            indexCard.id.set("1");
+            indexCard.view();
+            assertEquals(deck,indexCard.getCardDeckName());
         } catch (SQLException e) {
             ErrorLogger.getInstance().log(e.getLocalizedMessage());
         }
